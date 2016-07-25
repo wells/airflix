@@ -1,0 +1,114 @@
+// variables
+$toast-background-default: #818a91 !default;
+$toast-background-dark: #000 !default;
+$toast-background-light: #fff !default;
+$toast-background-primary: $color-accent-blue !default;
+$toast-background-info: $color-accent-turquoise !default;
+$toast-background-success: $color-accent-green !default;
+$toast-background-warning: $color-accent-orange !default;
+$toast-background-danger: $color-accent-red !default;
+
+// mixin
+@mixin toast-context ($background, $color) {
+    background-color: $background;
+    color: $color;
+}
+
+// core styling
+.toast {
+  display: table;
+  position: fixed;
+  min-height: 44px;
+  min-width: 288px;
+  max-width: 600px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: $border-radius-base;
+  left: 0;
+  bottom: 0;
+  margin: ($padding / 2) $padding;
+  cursor: default;
+  transition: visibility 0.3s, transform 0.3s, opacity 0.3s;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(100px);
+  -ms-transform: translateY(100px);
+  z-index: 9999;
+	&.active {	
+		visibility: visible;
+	  opacity: 1;
+    transform: translateY(0px);
+	  -ms-transform: translateY(0px);
+	}
+  &.top {
+    top: 0;
+    bottom: auto;
+    transform: translateY(-100px);
+    -ms-transform: translateY(-100px);
+    &.active {  
+      transform: translateY(0px);
+      -ms-transform: translateY(0px);
+    }
+  }
+  &.right {
+    left: auto;
+    right: 0;
+  }
+	.progress-bar {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 0.4em;
+		background: rgba(255,255,255,0.3);
+		width: 0;
+		transition: width 3s;
+		&.active {
+			width: 100%;
+		}
+	}
+	.message, .action {
+    vertical-align: middle;
+		display: table-cell;
+	}
+  .action {
+    float: right;
+    width: 24px;
+    height: 24px;
+  }
+  .action a:hover {
+    cursor: pointer;
+  }
+}
+
+// contexts
+.toast {
+    //default
+    @include toast-context($toast-background-default, $toast-background-light);
+    // other contexts
+    &.toast-info {
+        @include toast-context($toast-background-info, #fff);
+    }
+    &.toast-success {
+        @include toast-context($toast-background-success, #fff);
+    }
+    &.toast-warning {
+        @include toast-context($toast-background-warning, #fff);
+    }
+    &.toast-danger {
+        @include toast-context($toast-background-danger, #fff);
+    }
+    &.toast-dark {
+        @include toast-context($toast-background-dark, $toast-background-light);
+    }
+    &.toast-light {
+        @include toast-context($toast-background-light, $toast-background-dark);
+    }
+}
+
+// 
+.lt-ie10, .ie9, .oldie, .no-csstransitions {
+  .progress-bar {
+    display: none;
+  }
+}

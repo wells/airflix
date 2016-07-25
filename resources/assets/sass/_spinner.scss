@@ -1,0 +1,97 @@
+// Spinner
+// --------------------------------------------------
+
+
+// Animation
+@keyframes spin {
+    100% { 
+      transform: rotate(360deg);
+    }
+}
+
+// Core stuff
+.spinner {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 9998;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  background: $spinner-backdrop-background;
+  
+  // fixed position is better option for full screen spinner overlay
+  &.spinner-fixed {
+    position: fixed;
+  }
+
+  // wraps text and spinner itself and centers it
+  .spinner-wrapper {
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // fix for IE9
+    -ms-transform: translate(-50%, -50%);
+  }
+  
+  // animated spinner
+  .spinner-circle {
+    position: relative;
+    border: $spinner-border-size solid $spinner-border-secondary-color;
+    border-right-color: $spinner-border-primary-color;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spin 0.6s linear;
+    animation-iteration-count: infinite;
+    width: 3em;
+    height: 3em;
+    z-index: 2;
+  }
+
+  // a text below spinner
+  .spinner-text {
+    position: relative;
+    text-align: center;
+    margin-top: 0.5em;
+    z-index: 2;
+    width: 100%;
+    font-size: 95%;
+    color: $spinner-text-color;
+  }
+}
+
+// Sizes
+.spinner {
+    &.spinner-sm .spinner-circle {
+        width: $spinner-sm;
+        height: $spinner-sm;
+    }
+    &.spinner-md .spinner-circle {
+        width: $spinner-md;
+        height: $spinner-md;
+    }
+    &.spinner-lg .spinner-circle {
+        width: $spinner-lg;
+        height: $spinner-lg;
+    }
+    &.spinner-xl .spinner-circle {
+        width: $spinner-xl;
+        height: $spinner-xl;
+    }
+}
+
+// Default to standard gif for < IE10
+.lt-ie10, .ie9, .oldie, .no-csstransitions, .no-csstransforms3d {
+  .spinner .spinner-circle {
+    background: url("http://i2.wp.com/www.thegreatnovelingadventure.com/wp-content/plugins/wp-polls/images/loading.gif") center center no-repeat;
+    animation: none;
+    margin-left: 0;
+    margin-top: 5px;
+    border: none;
+    width: 32px;
+    height: 32px;
+  }
+}

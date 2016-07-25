@@ -1,0 +1,36 @@
+//
+// Header
+// --------------------------------------------------
+
+#header {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: $padding / 2 $padding;
+  overflow: auto;
+  transition: left $animation-fast ease;
+
+  #logo {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 24px;
+    color: $color-accent-green;
+    letter-spacing: -1px;
+    padding: 10px 15px;
+    float: left;
+    line-height: 1em;
+  }
+}
+
+@media only screen and (min-width: 768px)
+{
+  #header {
+    left: 200px;
+    width: calc(100% - 200px);
+
+    #logo {
+      padding: 10px 0px !important;
+    }
+  }
+}

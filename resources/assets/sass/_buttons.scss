@@ -1,0 +1,89 @@
+//
+// Buttons
+// --------------------------------------------------
+
+.button {
+  overflow: auto;
+  display: inline-block;
+  line-height: 1.6em;
+  color: $color-accent-green;
+  background-color: rgba(white, 0.1);
+  border-radius: $border-radius-base;
+  padding: 15px;
+  text-align: center;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  transition: background-color $animation-medium;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  i {
+    float: left;
+    padding-right: 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active  {
+    background-color: rgba(white, 0.2);
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    opacity: 0.3;
+    // IE8 filter
+    filter: alpha(opacity=30)
+
+    &:hover,
+    &:focus {
+      background-color: rgba(white, 0.1);
+    }
+  }
+}
+
+.button-mobile {
+  float: left;
+  padding: 10px;
+  margin: 0px;
+
+  i {
+    padding-right: 1px;
+  }
+}
+
+.button-right {
+  float: right;
+}
+
+.button-block {
+  display: block !important;
+  width: 100%;
+}
+
+@media only screen and (max-width: 767px)
+{
+  .button-mobile {
+    display: inline-block;
+  }
+  .button-desktop {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px)
+{
+  .button-mobile {
+    display: none;
+  }
+  .button-desktop {
+    display: inline-block;
+  }
+}

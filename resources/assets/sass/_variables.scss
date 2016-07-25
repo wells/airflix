@@ -1,0 +1,89 @@
+//
+// Variables
+// --------------------------------------------------
+
+// Colors
+$bg-primary:                #27343E;
+$bg-spinner:                #1D262E;
+$bg-navigation:             #1D272F;
+$color-accent-green:        #43B094;
+$color-accent-red:			#D4485B;
+$color-accent-turquoise:	#43ABB0;
+$color-accent-blue:			#436AB0;
+$color-accent-orange:		#F4815F;
+
+// Font
+$font:                      'Open Sans', sans-serif;
+$color-font:                rgb(230, 230, 230);
+$color-font-light:          rgba($color-font, 0.5);
+$color-font-verylight:      rgba($color-font, 0.3);
+
+$padding:                   30px;
+$margin:                    8px;
+$animation-fast:            0.3s;
+$animation-medium:          0.5s;
+$shadow:                    0px 5px 40px 0 rgba(0,0,0,0.5);
+
+$font-size-base:            14px !default;
+$font-size-large:           ceil(($font-size-base * 1.25)) !default; // ~18px
+$font-size-small:           ceil(($font-size-base * 0.85)) !default; // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:          1.428571429 !default; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:      floor(($font-size-base * $line-height-base)) !default; // ~20px
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+$padding-base-vertical:     10px !default;
+$padding-base-horizontal:   16px !default;
+
+$line-height-large:         1.3333333 !default; // extra decimals for Win 8.1 Chrome
+$line-height-small:         1.5 !default;
+
+$border-radius-base:        4px !default;
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+$input-bg:                  rgba(white, 0.1) !default;
+//** `<input disabled>` background color
+$input-bg-disabled:         #eee !default;
+
+//** Text color for `<input>`s
+$input-color:               $color-font !default;
+//** `<input>` border color
+$input-border:              rgba(white, 0.15) !default;
+
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+$input-border-radius:       $border-radius-base !default;
+
+//** Border color for inputs on focus
+$input-border-focus:        #66afe9 !default;
+
+//** Placeholder text color
+$input-color-placeholder:   $color-font !default;
+
+//** Default `.form-control` height
+$input-height-base:         ($line-height-computed + ($padding-base-vertical * 2) + 2) !default;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:           not-allowed !default;
+
+//== Spinner
+//
+//##
+$spinner-backdrop-background: rgba($bg-spinner, 0.85) !default;
+$spinner-text-color: $color-accent-green !default;
+$spinner-border-size: 4px !default;
+$spinner-border-primary-color:  $color-accent-green !default;
+$spinner-border-secondary-color: #ccc !default;
+$spinner-sm: 1.5em !default;
+$spinner-md: 2em !default;
+$spinner-lg: 2.5em !default;
+$spinner-xl: 3.5em !default;

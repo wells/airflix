@@ -1,0 +1,45 @@
+//
+// Search
+// --------------------------------------------------
+
+div.search {
+  height: 0px;
+  overflow-y: hidden;
+  opacity: 0;
+  transition: opacity, height $animation-fast ease;
+
+  .fields {
+    float: left;
+    width: calc(100% - 88px);
+  }
+  .clear {
+    float: left;
+  }
+  .button {
+    padding: 34px 20px;
+    margin: 0px 0px 0px 8px;
+  }
+  .genres, .order {
+    float: left;
+    width: calc(100% * 1 / 2 - 4px);
+  }
+  .order {
+    margin-right: 8px;
+  }
+}
+
+@media only screen and (max-width: 767px)
+{
+  .toggle-search div.search {
+    opacity: 1.0;
+    height: 100px;
+  }
+}
+
+@media only screen and (min-width: 768px)
+{
+  div.search {
+    opacity: 1.0;
+    height: 100px;
+  }
+}

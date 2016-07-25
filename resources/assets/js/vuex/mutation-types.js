@@ -1,0 +1,45 @@
+// Storage
+export const ADD_EPISODE = 'ADD_EPISODE'
+export const ADD_EPISODES = 'ADD_EPISODES'
+export const ADD_GENRES = 'ADD_GENRES'
+export const ADD_IMAGES = 'ADD_IMAGES'
+export const ADD_MOVIE = 'ADD_MOVIE'
+export const ADD_MOVIES = 'ADD_MOVIES'
+export const ADD_SEASON = 'ADD_SEASON'
+export const ADD_SEASONS = 'ADD_SEASONS'
+export const ADD_SHOW = 'ADD_SHOW'
+export const ADD_SHOWS = 'ADD_SHOWS'
+export const ADD_TOAST = 'ADD_TOAST'
+// Pagination
+export const LOADED_MOVIES = 'LOADED_MOVIES'
+export const LOADED_SHOWS = 'LOADED_SHOWS'
+export const LOADING_MOVIES = 'LOADING_MOVIES'
+export const LOADING_SHOWS = 'LOADING_SHOWS'
+export const ADD_MOVIE_LINKS = 'ADD_MOVIE_LINKS'
+export const ADD_SHOW_LINKS = 'ADD_SHOW_LINKS'
+// Settings
+export const ADD_SETTINGS = 'ADD_SETTINGS'
+export const CLEAR_ALL = 'CLEAR_ALL'
+export const SET_SETTINGS_ATTRIBUTES = 'SET_SETTINGS_ATTRIBUTES'
+// Search Results
+export const ADD_MOVIE_RESULTS = 'ADD_MOVIE_RESULTS'
+export const ADD_SHOW_RESULTS = 'ADD_SHOW_RESULTS'
+// Mobile Menus
+export const HIDE_MENU = 'HIDE_MENU'
+export const TOGGLE_MENU = 'TOGGLE_MENU'
+export const TOGGLE_SEARCH = 'TOGGLE_SEARCH'
+// Filters
+export const CLEAR_FILTERS = 'CLEAR_FILTERS'
+export const CLEAR_GENRES_FILTER = 'CLEAR_GENRES_FILTER'
+export const FILTER_GENRES = 'FILTER_GENRES'
+export const FILTER_KEYWORDS = 'FILTER_KEYWORDS'
+export const FILTER_ORDER = 'FILTER_ORDER'
+// Selections
+export const SELECT_EPISODE = 'SELECT_EPISODE'
+export const SELECT_MOVIE = 'SELECT_MOVIE'
+export const SELECT_SEASON = 'SELECT_SEASON'
+export const SELECT_SHOW = 'SELECT_SHOW'
+// Views
+export const ADD_MOVIE_VIEWS = 'ADD_MOVIE_VIEWS'
+export const ADD_SEASON_VIEWS = 'ADD_SEASON_VIEWS'
+export const ADD_SHOW_VIEWS = 'ADD_SHOW_VIEWS'

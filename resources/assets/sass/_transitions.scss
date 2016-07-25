@@ -1,0 +1,10 @@
+//
+// Transitions
+// --------------------------------------------------
+
+.loading-transition {
+    transition: all $animation-fast ease;
+}
+.loading-enter, .loading-leave {
+    opacity: 0;
+}

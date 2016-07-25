@@ -1,0 +1,81 @@
+//
+// Carousel
+// --------------------------------------------------
+
+.carousel {
+  list-style-type: none;
+  padding: 0px 0px 20px 0px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  width: 100%;
+
+  li{
+    display: inline-block;
+    border-radius: $border-radius-base;
+    margin-right: 10px;
+    vertical-align: top;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  a {
+    border-radius: $border-radius-base;
+    display: block;
+    line-height: 1.0em;
+
+    img {
+      border: 3px solid transparent;
+    }
+    
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:hover img {
+      border: 3px solid rgba($color-accent-green, 0.5);
+    }
+
+    &.active img {
+      border: 3px solid $color-accent-green;
+    }
+
+    &.active:hover {
+      cursor: default;
+    }
+  }
+}
+
+.carousel.posters {
+  li {
+    width: 150px;
+  }
+
+  span {
+    display: block;
+    padding: 0px 8px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8em;
+  }
+}
+
+.carousel.backdrops {
+  li {
+    width: 300px;
+  }
+
+  span {
+    display: block;
+    padding: 0px 8px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8em;
+  }
+}

@@ -1,0 +1,7 @@
+/vendor
+/node_modules
+Homestead.yaml
+Homestead.json
+.env
+/public/downloads/episodes
+/public/downloads/movies

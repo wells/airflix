@@ -1,0 +1,31 @@
+//
+// Summaries
+// --------------------------------------------------
+
+.summaries {
+  list-style-type: none;
+  padding: 0px;
+
+  h3 {
+    margin-top: 0px;
+    color: $color-font-light;
+  }
+
+  li {
+    padding-bottom: $padding;
+    margin: $padding 0px;
+    border-bottom: 1px solid rgba(white, 0.1);
+  }
+
+  .tags li {
+    border-bottom: 0px;
+    margin: 0px 10px 10px 0px;
+  }
+
+  img {
+    width: 150px;
+    display: block;
+    float: right;
+    margin-left: $padding / 2;
+  }
+}

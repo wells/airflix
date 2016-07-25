@@ -1,0 +1,34 @@
+//
+// Tags
+// --------------------------------------------------
+
+.tags {
+  list-style-type: none;
+  padding: 0px;
+
+  li {
+    display: inline-block;
+    background-color: rgba(white, 0.05);
+    color: $color-font-light;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+  }
+
+  .key {
+    color: $color-font-verylight;
+    float: left;
+    display: block;
+    margin-right: 12px;
+  }
+
+  .value {
+    position: relative;
+    overflow: auto;
+  }
+}
+
+.tags.mini {
+  font-size: 0.85em;
+}

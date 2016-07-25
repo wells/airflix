@@ -1,0 +1,83 @@
+//
+// Scaffold
+// --------------------------------------------------
+
+html {
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background: $bg-primary;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: $color-font;
+  font-family: $font;
+  line-height: 1.6em;
+}
+
+#app {
+  overflow-x: hidden;
+}
+
+a {
+  color: $color-font;
+  text-decoration: none;
+}
+
+a {
+  &.disabled,
+  fieldset[disabled] & {
+    cursor: $cursor-disabled;
+    pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+  }
+}
+
+img {
+  width: 100%;
+  border-radius: $border-radius-base;
+}
+
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#content {
+  flex: 1;
+  overflow: auto;
+}
+
+.movies,
+.shows,
+.movie,
+.movie-edit,
+.not-found,
+.season,
+.settings,
+.show,
+.show-edit {
+  padding: 0px $padding $padding;
+  overflow: auto;
+}
+
+
+.results,
+.search {
+  overflow: auto;
+}
+
+#footer {
+  color: $color-accent-green;
+  background-color: rgba(white, 0.1);
+  text-align: center;
+  font-weight: 300;
+  padding: $padding / 2;
+}

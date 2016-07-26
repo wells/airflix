@@ -35,6 +35,8 @@ We recommend that you use the following servers to run Airflix.
 - [MariaDB database server](https://mariadb.com/)
 - [Redis server](http://redis.io/)
 
+When trying this application out in a development environment, please note that Laravel Valet currently does not play video files. We recommend you either use Laravel Homestead or a local install of nginx (i.e. from homebrew). Hopefully this will change soon, so we can [ngrok](https://ngrok.com/) our Airflix installs. You could always just setup a [tinc](http://tinc-vpn.org/) VPN with some [avahi](https://en.wikipedia.org/wiki/Avahi_%28software%29) for your home network.
+
 ### Create a Database
 
 We recommend you use a database with `utf8mb4` encoding and `utf8mb4_unicode_520_ci` collation. Make sure you also update your `.env` file with your database credentials and other configuration options.

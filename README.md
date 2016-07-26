@@ -45,7 +45,7 @@ Airflix requires an API token from [themoviedb.org](https://www.themoviedb.org/)
 
 ### Configuration
 
-Once you have an API key ready to use, you can simply run `php artisan airflix:install` to run migrationes, configure your folders, and enter API keys. This command will also perform an initial scan of your movies and TV shows folders for content, which will take time on the first run.
+Once you have an API key ready to use, you can simply run `php artisan airflix:install` to run migrations, configure your folders, and enter API keys. This command will also perform an initial scan of your movies and TV shows folders for content, which will take time on the first run.
 
 ## Documentation
 

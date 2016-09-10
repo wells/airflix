@@ -14,7 +14,7 @@ class EpisodeDownloadController extends Controller
      */
     protected function episodes()
     {
-        return app()->make(Episodes::class);
+        return app(Episodes::class);
     }
 
     /**
@@ -24,7 +24,7 @@ class EpisodeDownloadController extends Controller
      */
     protected function views()
     {
-        return app()->make(EpisodeViews::class);
+        return app(EpisodeViews::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class EpisodeDownloadController extends Controller
             ->get($id, $relationships);
 
         if (! $episode->has_file) {
-            return app()->abort(404);
+            return abort(404);
         }
 
         $this->views()

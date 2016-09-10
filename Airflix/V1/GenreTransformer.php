@@ -51,7 +51,7 @@ class GenreTransformer
     {
         $movies = $genre->movies;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\MovieTransformer::class
         );
 
@@ -73,7 +73,7 @@ class GenreTransformer
     {
         $shows = $genre->shows;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\ShowTransformer::class
         );
 

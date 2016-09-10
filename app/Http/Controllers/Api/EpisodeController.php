@@ -16,7 +16,7 @@ class EpisodeController extends ApiController
      */
     protected function episodes()
     {
-        return app()->make(Episodes::class);
+        return app(Episodes::class);
     }
 
     /**

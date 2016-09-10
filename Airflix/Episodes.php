@@ -14,7 +14,7 @@ class Episodes implements Contracts\Episodes
      */
     public function imageClient()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbImageClient::class
         );
     }
@@ -26,7 +26,7 @@ class Episodes implements Contracts\Episodes
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\EpisodeTransformer::class
         );
     }

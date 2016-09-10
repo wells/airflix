@@ -16,7 +16,7 @@ class Seasons implements Contracts\Seasons
      */
     public function episodes()
     {
-        return app()->make(
+        return app(
             Contracts\Episodes::class
         );
     }
@@ -28,7 +28,7 @@ class Seasons implements Contracts\Seasons
      */
     public function imageClient()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbImageClient::class
         );
     }
@@ -40,7 +40,7 @@ class Seasons implements Contracts\Seasons
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\SeasonTransformer::class
         );
     }

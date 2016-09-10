@@ -15,7 +15,7 @@ class GenreController extends ApiController
      */
     protected function genres()
     {
-        return app()->make(Genres::class);
+        return app(Genres::class);
     }
 
     /**

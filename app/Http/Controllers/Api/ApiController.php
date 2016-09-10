@@ -14,7 +14,7 @@ class ApiController extends Controller
      */
     protected function apiResponse()
     {
-        return app()->make(ApiResponse::class);
+        return app(ApiResponse::class);
     }
 
     /**

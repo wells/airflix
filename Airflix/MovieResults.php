@@ -16,7 +16,7 @@ class MovieResults implements Contracts\MovieResults
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbMovieResultTransformer::class
         );
     }

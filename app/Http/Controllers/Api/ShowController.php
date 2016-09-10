@@ -16,7 +16,7 @@ class ShowController extends ApiController
      */
     protected function shows()
     {
-        return app()->make(Shows::class);
+        return app(Shows::class);
     }
 
     /**

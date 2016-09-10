@@ -25,7 +25,7 @@ class Settings implements Contracts\Settings
      */
     public function episodes()
     {
-        return app()->make(
+        return app(
             Contracts\Episodes::class
         );
     }
@@ -37,7 +37,7 @@ class Settings implements Contracts\Settings
      */
     public function episodeViews()
     {
-        return app()->make(
+        return app(
             Contracts\EpisodeViews::class
         );
     }
@@ -49,7 +49,7 @@ class Settings implements Contracts\Settings
      */
     public function movies()
     {
-        return app()->make(
+        return app(
             Contracts\Movies::class
         );
     }
@@ -61,7 +61,7 @@ class Settings implements Contracts\Settings
      */
     public function movieViews()
     {
-        return app()->make(
+        return app(
             Contracts\MovieViews::class
         );
     }
@@ -73,7 +73,7 @@ class Settings implements Contracts\Settings
      */
     public function seasons()
     {
-        return app()->make(
+        return app(
             Contracts\Seasons::class
         );
     }
@@ -85,7 +85,7 @@ class Settings implements Contracts\Settings
      */
     public function shows()
     {
-        return app()->make(
+        return app(
             Contracts\Shows::class
         );
     }

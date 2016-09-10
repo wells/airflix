@@ -13,7 +13,7 @@ class EpisodeViews implements Contracts\EpisodeViews
      */
     public function episodes()
     {
-        return app()->make(
+        return app(
             Contracts\Episodes::class
         );
     }
@@ -25,7 +25,7 @@ class EpisodeViews implements Contracts\EpisodeViews
      */
     public function seasons()
     {
-        return app()->make(
+        return app(
             Contracts\Seasons::class
         );
     }
@@ -37,7 +37,7 @@ class EpisodeViews implements Contracts\EpisodeViews
      */
     public function shows()
     {
-        return app()->make(
+        return app(
             Contracts\Shows::class
         );
     }
@@ -49,7 +49,7 @@ class EpisodeViews implements Contracts\EpisodeViews
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\EpisodeViewMonthlyTransformer::class
         );
     }

@@ -74,7 +74,7 @@ class MovieTransformer
         $backdrops = $this->movieImages()
             ->getBackdrops($movie);
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\TmdbImageTransformer::class
         );
 
@@ -96,7 +96,7 @@ class MovieTransformer
     {
         $genres = $movie->genres;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\GenreTransformer::class
         );
 
@@ -119,7 +119,7 @@ class MovieTransformer
         $posters = $this->movieImages()
             ->getPosters($movie);
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\TmdbImageTransformer::class
         );
 
@@ -142,7 +142,7 @@ class MovieTransformer
         $results = $this->movieResults()
             ->get($movie);
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\TmdbMovieResultTransformer::class
         );
 
@@ -164,7 +164,7 @@ class MovieTransformer
     {
         $views = $movie->monthlyViews();
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\MovieViewMonthlyTransformer::class
         );
 
@@ -182,7 +182,7 @@ class MovieTransformer
      */
     protected function movieImages()
     {
-        return app()->make(
+        return app(
             Contracts\MovieImages::class
         );
     }
@@ -194,7 +194,7 @@ class MovieTransformer
      */
     protected function movieResults()
     {
-        return app()->make(
+        return app(
             Contracts\MovieResults::class
         );
     }

@@ -16,7 +16,7 @@ class ShowResults implements Contracts\ShowResults
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbShowResultTransformer::class
         );
     }

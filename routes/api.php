@@ -1,11 +1,20 @@
 <?php
 
+use Illuminate\Http\Request;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+
 // API Routes
-Route::group([
-    'middleware' => ['api'], 
-    'prefix' => 'api', 
-    'namespace' => 'Api',
-], function () {
+Route::group(['namespace' => 'Api',], function () {
 
     // Genres
     Route::get('genres', [
@@ -104,36 +113,5 @@ Route::group([
         'as' => 'episodes',
         'uses' => 'EpisodeController@show'
     ]);
-
-});
-
-// Web Routes
-Route::group([
-    'middleware' => ['web'],
-], function () {
-
-    // Glide images
-    Route::get('images/{path}', [
-        'as' => 'download.images',
-        'uses' => 'ImageDownloadController@show'
-    ])->where('path', '.+');
-
-    // Episode Downloads
-    Route::get('downloads/episodes/{id}', [
-        'as' => 'download.episodes',
-        'uses' => 'EpisodeDownloadController@show'
-    ]);
-
-    // Movie Downloads
-    Route::get('downloads/movies/{id}', [
-        'as' => 'download.movies',
-        'uses' => 'MovieDownloadController@show'
-    ]);
-
-    // Load the SPA
-    Route::get('{path?}', [
-        'as' => 'home',
-        'uses' => 'HomeController@index'
-    ])->where('path', '.+');
 
 });

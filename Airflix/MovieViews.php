@@ -13,7 +13,7 @@ class MovieViews implements Contracts\MovieViews
      */
     public function movies()
     {
-        return app()->make(
+        return app(
             Contracts\Movies::class
         );
     }
@@ -25,7 +25,7 @@ class MovieViews implements Contracts\MovieViews
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\MovieViewsTransformer::class
         );
     }

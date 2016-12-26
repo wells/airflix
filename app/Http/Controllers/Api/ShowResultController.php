@@ -16,7 +16,7 @@ class ShowResultController extends ApiController
      */
     protected function shows()
     {
-        return app()->make(Shows::class);
+        return app(Shows::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class ShowResultController extends ApiController
      */
     protected function showResults()
     {
-        return app()->make(ShowResults::class);
+        return app(ShowResults::class);
     }
 
     /**

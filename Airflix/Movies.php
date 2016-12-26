@@ -18,7 +18,7 @@ class Movies implements Contracts\Movies
      */
     public function filters()
     {
-        return app()->make(
+        return app(
             MovieFilters::class
         );
     }
@@ -30,7 +30,7 @@ class Movies implements Contracts\Movies
      */
     public function genres()
     {
-        return app()->make(
+        return app(
             Contracts\Genres::class
         );
     }
@@ -42,7 +42,7 @@ class Movies implements Contracts\Movies
      */
     public function imageClient()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbImageClient::class
         );
     }
@@ -54,7 +54,7 @@ class Movies implements Contracts\Movies
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\MovieTransformer::class
         );
     }
@@ -66,7 +66,7 @@ class Movies implements Contracts\Movies
      */
     public function views()
     {
-        return app()->make(
+        return app(
             Contracts\MovieViews::class
         );
     }

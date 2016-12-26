@@ -16,7 +16,7 @@ class MoviePosterController extends ApiController
      */
     protected function movies()
     {
-        return app()->make(Movies::class);
+        return app(Movies::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class MoviePosterController extends ApiController
      */
     protected function movieImages()
     {
-        return app()->make(MovieImages::class);
+        return app(MovieImages::class);
     }
 
     /**

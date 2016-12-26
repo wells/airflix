@@ -11,10 +11,10 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": "5.2.*",
+        "php": ">=5.6.4",
+        "laravel/framework": "5.3.*",
         "league/glide-laravel": "^1.0",
-        "league/fractal": "dev-master",
+        "league/fractal": "^0.14.0",
         "predis/predis": "~1.0",
         "php-tmdb/laravel": "~1.0",
         "guzzlehttp/guzzle": "~5.0",
@@ -23,10 +23,10 @@
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~4.0",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*",
-        "mpociot/laravel-test-factory-helper": "^0.2.0",
+        "phpunit/phpunit": "~5.0",
+        "symfony/css-selector": "3.1.*",
+        "symfony/dom-crawler": "3.1.*",
+        "mpociot/laravel-test-factory-helper": "^0.3.0",
         "itsgoingd/clockwork": "~1.11.1",
         "fitztrev/query-tracer": "^1.0"
     },

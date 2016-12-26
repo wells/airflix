@@ -99,6 +99,6 @@ class SetFolderPaths extends Command
      * @return \Airflix\Contracts\Settings
      */
     protected function settings() {
-        return app()->make(Settings::class);
+        return app(Settings::class);
     }
 }

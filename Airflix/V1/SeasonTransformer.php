@@ -58,7 +58,7 @@ class SeasonTransformer
     {
         $episodes = $season->episodes;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\EpisodeTransformer::class
         );
 
@@ -80,7 +80,7 @@ class SeasonTransformer
     {
         $show = $season->show;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\ShowTransformer::class
         );
 
@@ -102,7 +102,7 @@ class SeasonTransformer
     {
         $views = $season->monthlyViews();
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\SeasonViewMonthlyTransformer::class
         );
 

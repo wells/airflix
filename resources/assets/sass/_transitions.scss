@@ -2,9 +2,9 @@
 // Transitions
 // --------------------------------------------------
 
-.loading-transition {
+.loading-enter-active, .loading-leave-active {
     transition: all $animation-fast ease;
 }
-.loading-enter, .loading-leave {
+.loading-enter, .loading-leave-active {
     opacity: 0;
 }

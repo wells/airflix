@@ -1,15 +1,20 @@
 <template>
 <div class="season">
-  <spinner v-show="$loadingRouteData" transition="loading"></spinner>
+  <transition name="loading">
+    <spinner v-show="loadingRouteData"></spinner>
+  </transition>
 
-  <div v-if="!$loadingRouteData">
+  <div v-if="!loadingRouteData">
     <img :src="show.attributes.backdrop_url" />
 
-    <h1>{{ show.attributes.name }} &ndash; {{ season.attributes.name }}</h1>
+    <h1>
+      {{ show.attributes.name }} &ndash; {{ season.attributes.name }}
+    </h1>
 
-    <a class="button" v-link="{ path: '/shows/' + show.id }">
+    <router-link class="button" 
+        :to="{ path: '/shows/' + show.id }">
       <i class="material-icons">&#xE5C4;</i> {{ show.attributes.name }}
-    </a>
+    </router-link>
 
     <div class="overview" v-if="season.attributes.overview">
       <h2>
@@ -17,10 +22,11 @@
         Overview
       </h2>
 
-      <img v-if="season.attributes.poster_url" :src="season.attributes.poster_url" />
+      <img v-if="season.attributes.poster_url" 
+          :src="season.attributes.poster_url" />
 
       <p>
-      {{ season.attributes.overview }}
+        {{ season.attributes.overview }}
       </p>
     </div>
 
@@ -30,7 +36,9 @@
     </h2>
 
     <ul class="summaries" v-if="season.relationships.episodes">
-      <episode v-for="episode in episodes" :episode="episode"></episode>
+      <episode v-for="episode in episodes" 
+          :episode="episode">    
+      </episode>
     </ul>
 
     <div v-if="season.relationships.views">
@@ -41,12 +49,16 @@
 
       <ul class="tags">
         <li>
-          <span class="key">Overall Views:</span>&nbsp;&nbsp;
-          {{ season.attributes.total_views }}
+          <div class="key">Overall Views:</div>
+          <div class="value">
+            {{ season.attributes.total_views }}
+          </div>
         </li>
         <li>
-          <span class="key">Last 12 Months:</span>&nbsp;&nbsp;
-          {{ totalViewsLastYear }}
+          <div class="key">Last 12 Months:</div>
+          <div class="value">
+            {{ totalViewsLastYear }}
+          </div>
         </li>
       </ul>
 
@@ -62,80 +74,110 @@ import range from 'moment-range'
 import Episode from './Episode.vue'
 import MonthlyChart from './MonthlyChart.vue'
 import Spinner from './Spinner.vue'
-import { 
-  selectSeason, 
-  getSeason 
-} from '../vuex/actions/seasons'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Season',
+
   components: {
     Episode,
     MonthlyChart,
     Spinner
   },
-  vuex: {
-    getters: {
-      season: ({ seasons }) => seasons.all.find(
-        s => s.id === seasons.currentID
-      ),
-      episodes: ({ seasons, episodes }) => {
-        const season = seasons.all.find(
-          s => s.id === seasons.currentID
-        )
-        return season.relationships.episodes.data.map(
-          ({ id }) => episodes.all.find(e => e.id === id)
-        )
-      },
-      monthlyViews: ({ seasons, views }) => {
-        const season = seasons.all.find(
-          s => s.id === seasons.currentID
-        )
-        const seasonViews = season.relationships.views.data.map(
-          ({ id }) => views.seasons.find(s => s.id === id)
-        )
 
-        // Create a moment.js range of the past 12 months
-        const currentMonth = moment().startOf('month')
-        const lastYear = currentMonth.clone().subtract(11, 'M')
-        const range = moment.range(lastYear, currentMonth)
-        const months = []
+  created: function () {
+    this.loadingRoute()
+    this.fetchData()
+  },
 
-        // Create records for past 12 months and merge API data
-        range.by('months', function(month) {
-          const label = month.format('MM/YY')
-          const view = seasonViews.find(
-            s => s.attributes.label === label
-          )
-          months.push({
-            id: label,
-            total: view ? view.attributes.total : 0,
-          })
-        })
+  watch: {
+    '$route': function () {
+      this.loadingRoute()
+      this.fetchData()
+    }
+  },
 
-        return months
-      },
-      show: ({ seasons, shows }) => {
-        const season = seasons.all.find(
-          s => s.id === seasons.currentID
-        )
-        return shows.all.find(
-          s => s.id === season.relationships.show.data.id
-        )
+  methods: {
+    ...mapActions([
+      'getSeason',
+      'loadingRoute'
+    ]),
+
+    fetchData: function () {
+      let payload = {
+        id: this.$route.params.id,
+        url: '/api/seasons/' + this.$route.params.id
       }
-    },
-    actions: {
-      selectSeason,
-      getSeason
+
+      this.getSeason(payload)
     }
   },
-  route: {
-    data (transition) {
-      this.selectSeason(transition)
-      this.getSeason(transition)
-    }
-  },
+
   computed: {
+    episodes: function () {
+      let state = this.$store.state
+      let season = state.seasons.all.find(
+        s => s.id === state.seasons.currentID
+      )
+
+      return season.relationships.episodes.data.map(
+        ({ id }) => state.episodes.all.find(e => e.id === id)
+      )
+    },
+
+    loadingRouteData: function () {
+      return this.$store.state.interfaces.loadingRouteData
+    },
+
+    monthlyViews: function () {
+      let state = this.$store.state
+      let season = state.seasons.all.find(
+        s => s.id === state.seasons.currentID
+      )
+      let seasonViews = season.relationships.views.data.map(
+        ({ id }) => state.views.seasons.find(s => s.id === id)
+      )
+
+      // Create a moment.js range of the past 12 months
+      let currentMonth = moment().startOf('month')
+      let lastYear = currentMonth.clone().subtract(11, 'M')
+      let range = moment.range(lastYear, currentMonth)
+      let months = []
+
+      // Create records for past 12 months and merge API data
+      range.by('months', function(month) {
+        let label = month.format('MM/YY')
+        let view = seasonViews.find(
+          s => s.attributes.label === label
+        )
+        months.push({
+          id: label,
+          total: view ? view.attributes.total : 0,
+        })
+      })
+
+      return months
+    },
+
+    season: function () {
+      let state = this.$store.state
+
+      return state.seasons.all.find(
+        s => s.id === state.seasons.currentID
+      )
+    },
+
+    show: function () {
+      let state = this.$store.state
+      let season = state.seasons.all.find(
+        s => s.id === state.seasons.currentID
+      )
+
+      return state.shows.all.find(
+        s => s.id === season.relationships.show.data.id
+      )
+    },
+
     totalViewsLastYear: function () {
       return this.monthlyViews.reduce(
         (total, month) => total + month.total, 0

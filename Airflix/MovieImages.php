@@ -15,7 +15,7 @@ class MovieImages implements Contracts\MovieImages
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbImageTransformer::class
         );
     }

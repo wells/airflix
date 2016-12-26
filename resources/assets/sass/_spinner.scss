@@ -11,19 +11,18 @@
 
 // Core stuff
 .spinner {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 9998;
-  position: absolute;
   width: 100%;
   text-align: center;
-  background: $spinner-backdrop-background;
   
   // fixed position is better option for full screen spinner overlay
   &.spinner-fixed {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9998;
     position: fixed;
+    background: $spinner-backdrop-background;
   }
 
   // wraps text and spinner itself and centers it

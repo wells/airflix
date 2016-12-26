@@ -18,7 +18,7 @@ class SettingsController extends ApiController
      */
     protected function settings()
     {
-        return app()->make(Settings::class);
+        return app(Settings::class);
     }
 
     /**

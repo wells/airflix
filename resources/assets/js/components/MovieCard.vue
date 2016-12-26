@@ -1,16 +1,18 @@
 <template>
   <div class="card poster">
-    <a v-link="{ path: link }">
+    <router-link :to="{ path: link }">
       <img :src="movie.attributes.poster_url" />
       <span>{{ movie.attributes.title }}</span>
-    </a>
+    </router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: 'MovieCard',
+
   props: ['movie'],
+
   computed: {
     link: function () {
       return this.movie.attributes.tmdb_movie_id == 0 ? 

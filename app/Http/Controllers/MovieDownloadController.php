@@ -14,7 +14,7 @@ class MovieDownloadController extends Controller
      */
     protected function movies()
     {
-        return app()->make(Movies::class);
+        return app(Movies::class);
     }
 
     /**
@@ -24,7 +24,7 @@ class MovieDownloadController extends Controller
      */
     protected function views()
     {
-        return app()->make(MovieViews::class);
+        return app(MovieViews::class);
     }
 
     /**
@@ -40,7 +40,7 @@ class MovieDownloadController extends Controller
             ->get($id);
 
         if (! $movie->has_file) {
-            return app()->abort(404);
+            return abort(404);
         }
 
         $this->views()

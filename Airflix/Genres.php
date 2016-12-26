@@ -15,7 +15,7 @@ class Genres implements Contracts\Genres
      */
     public function filters()
     {
-        return app()->make(GenreFilters::class);
+        return app(GenreFilters::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Genres implements Contracts\Genres
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\GenreTransformer::class
         );
     }

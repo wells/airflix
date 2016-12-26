@@ -1,32 +1,35 @@
 <template>
-<div :class="{ 'toggle-menu' : showMenu, 'toggle-search' : showSearch  }">
+<div id="app" :class="{ 'toggle-menu' : showMenu, 'toggle-search' : showSearch  }">
   <!-- header -->
   <div id="header">
-    <a class="button button-mobile" @click.prevent="toggleMenu">
+    <a class="button button-mobile" 
+        @click.prevent="toggleMenu">
       <i class="material-icons" v-if="!showMenu">&#xE5D2;</i>
       <i class="material-icons" v-else>&#xE5CD;</i>
     </a>
 
-    <a class="button button-mobile button-right" @click.prevent="toggleSearch" v-if="showSearchButton">
+    <a class="button button-mobile button-right" 
+        v-if="showSearchButton"
+        @click.prevent="toggleSearch">
       <i class="material-icons" v-if="!showSearch">&#xE8B6;</i>
       <i class="material-icons" v-else>&#xE5CD;</i>
     </a>
 
-    <a class="button button-mobile button-right" 
+    <router-link class="button button-mobile button-right" 
         v-if="hasMoviePath"
-        v-link="{ path: '/movies' }">
+        to="/movies">
       <i class="material-icons">&#xE02C;</i>
-    </a>
+    </router-link>
 
-    <a class="button button-mobile button-right" 
+    <router-link class="button button-mobile button-right" 
         v-if="hasShowPath"
-        v-link="{ path: '/shows' }">
+        to="/shows">
       <i class="material-icons">&#xE639;</i>
-    </a>
+    </router-link>
 
-    <a id="logo" v-link="{ path: '/' }">
+    <router-link id="logo" to="/">
       Airflix
-    </a>
+    </router-link>
   </div>
 
   <!-- menu -->
@@ -36,24 +39,24 @@
     </a>
 
     <ul>
-      <li v-link-active>
-          <a v-link="{ path: '/movies' }" @click="hideMenu">
+      <router-link tag="li" to="/movies">
+          <a @click="hideMenu">
             <i class="material-icons">&#xE02C;</i>
             Movies
           </a>
-      </li>
-      <li v-link-active>
-        <a v-link="{ path: '/shows' }" @click="hideMenu">
+      </router-link>
+      <router-link tag="li" to="/shows">
+        <a @click="hideMenu">
           <i class="material-icons">&#xE639;</i>
           Shows
         </a>
-      </li>
-      <li v-link-active>
-        <a v-link="{ path: '/settings' }" @click="hideMenu">
+      </router-link>
+      <router-link tag="li" to="/settings">
+        <a @click="hideMenu">
           <i class="material-icons">&#xE8B8;</i>
           Settings
         </a>
-      </li>
+      </router-link>
     </ul>
   </div>
 
@@ -80,43 +83,46 @@
 </template>
 
 <script>
-import store from '../vuex/store'
 import Toast from './Toast.vue'
-import {
-  hideMenu,
-  toggleMenu, 
-  toggleSearch
-} from '../vuex/actions/mobile'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
+
   components: { 
     Toast
   },
-  store,
-  vuex: {
-    getters: {
-      showMenu: ({ mobile }) => mobile.showMenu,
-      showSearch: ({ mobile }) => mobile.showSearch
-    },
-    actions: {
-      hideMenu,
-      toggleMenu,
-      toggleSearch
-    }
-  },
+
   computed: {
     hasMoviePath: function () {
       return this.$route.path.indexOf('/movies/') > -1
     },
+
     hasShowPath: function () {
       return this.$route.path.indexOf('/shows/') > -1 ||
         this.$route.path.indexOf('/seasons/') > -1
     },
+
     showSearchButton: function () {
       return this.$route.path == '/movies' ||
         this.$route.path == '/shows';
+    },
+
+    showMenu: function () {
+      return this.$store.state.interfaces.showMenu
+    },
+
+    showSearch: function () {
+      return this.$store.state.interfaces.showSearch
     }
+  },
+
+  methods: {
+    ...mapActions([
+      'hideMenu',
+      'toggleMenu',
+      'toggleSearch'
+    ])
   }
 }
 </script>

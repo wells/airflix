@@ -18,7 +18,7 @@ class Shows implements Contracts\Shows
      */
     public function filters()
     {
-        return app()->make(
+        return app(
             ShowFilters::class
         );
     }
@@ -30,7 +30,7 @@ class Shows implements Contracts\Shows
      */
     public function genres()
     {
-        return app()->make(
+        return app(
             Contracts\Genres::class
         );
     }
@@ -42,7 +42,7 @@ class Shows implements Contracts\Shows
      */
     public function imageClient()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbImageClient::class
         );
     }
@@ -54,7 +54,7 @@ class Shows implements Contracts\Shows
      */
     public function seasons()
     {
-        return app()->make(
+        return app(
             Contracts\Seasons::class
         );
     }
@@ -66,7 +66,7 @@ class Shows implements Contracts\Shows
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\ShowTransformer::class
         );
     }
@@ -78,7 +78,7 @@ class Shows implements Contracts\Shows
      */
     public function views()
     {
-        return app()->make(
+        return app(
             Contracts\EpisodeViews::class
         );
     }

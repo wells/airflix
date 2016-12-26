@@ -16,7 +16,7 @@ class ShowBackdropController extends ApiController
      */
     protected function shows()
     {
-        return app()->make(Shows::class);
+        return app(Shows::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class ShowBackdropController extends ApiController
      */
     protected function showImages()
     {
-        return app()->make(ShowImages::class);
+        return app(ShowImages::class);
     }
 
     /**

@@ -15,7 +15,7 @@ class ShowImages implements Contracts\ShowImages
      */
     public function transformer()
     {
-        return app()->make(
+        return app(
             Contracts\TmdbImageTransformer::class
         );
     }

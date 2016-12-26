@@ -9,41 +9,16 @@ import ShowEdit from './components/ShowEdit.vue'
 import Season from './components/Season.vue'
 import NotFound from './components/NotFound.vue'
   
-export function configRouter (router) {
-  // routes
-  router.map({
-    '/movies': {
-      component: Movies
-    },
-    '/movies/:id': {
-      component: Movie
-    },
-    '/movies/:id/edit': {
-      component: MovieEdit
-    },
-    '/settings': {
-      component: Settings
-    },
-    '/shows': {
-      component: Shows
-    },
-    '/shows/:id': {
-      component: Show
-    },
-    '/shows/:id/edit': {
-      component: ShowEdit
-    },
-    '/shows/seasons/:id': {
-      component: Season
-    },
-    // not found handler
-    '*': {
-      component: NotFound
-    },
-  })
-
-  // redirects
-  router.redirect({
-    '/': '/movies'
-  })
-}
+export const routes = [
+  { path: '/', redirect: '/movies' },
+  { path: '/movies', component: Movies },
+  { path: '/movies/:id', component: Movie },
+  { path: '/movies/:id/edit', component: MovieEdit },
+  { path: '/settings', component: Settings },
+  { path: '/shows', component: Shows },
+  { path: '/shows/:id', component: Show },
+  { path: '/shows/:id/edit', component: ShowEdit },
+  { path: '/shows/seasons/:id', component: Season },
+  // Not Found Handler
+  { path: '*', component: NotFound }
+]

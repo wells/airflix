@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use League\Fractal\Manager;
 use League\Glide\ServerFactory;
 use League\Glide\Responses\LaravelResponseFactory;
 

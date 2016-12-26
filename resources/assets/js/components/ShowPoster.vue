@@ -1,49 +1,52 @@
 <template>
   <li>
-    <a :class="{ active : isActive }" @click.prevent="selectPoster()">
-      <img style="width: 150px" :src="poster.attributes.file_url" />
+    <a :class="{ active : isActive }" 
+        @click.prevent="selectPoster()">
+      <img :src="poster.attributes.file_url" />
     </a>
   </li>
 </template>
 
 <script>
-import { 
-  patchShow 
-} from '../vuex/actions/shows'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'ShowPoster',
+
   props: ['show', 'poster'],
-  vuex: {
-  	actions: {
-      patchShow
-    }
-  },
+
   methods: {
+    ...mapActions([
+      'patchShow'
+    ]),
+
     selectPoster: function () {
       if (this.isActive) {
         return;
       }
 
-      const data = {
-        'data': {
-          'type': 'shows',
-          'id': this.show.id,
-          'attributes': {
-            'poster_path': this.poster.attributes.file_path
+      let payload = {
+        url: '/api/shows/' + this.show.id,
+        json: {
+          data: {
+            type: 'shows',
+            id: this.show.id,
+            attributes: {
+              poster_path: this.poster.attributes.file_path
+            }
           }
         }
       }
 
-      this.patchShow(
-        this.show.id, data
-      )
+      this.patchShow(payload)
     }
   },
+
   computed: {
     isActive: function () {
-      var currentPoster = this.show.attributes.poster_url
-      var poster = this.poster.attributes.file_path
+      let currentPoster = this.show.attributes.poster_url
+      let poster = this.poster.attributes.file_path
+
       return currentPoster.indexOf(poster) > -1
     }
   }

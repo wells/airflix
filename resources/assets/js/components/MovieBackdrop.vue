@@ -1,49 +1,52 @@
 <template>
   <li>
-    <a :class="{ active : isActive }" @click.prevent="selectBackdrop()">
+    <a :class="{ active : isActive }" 
+        @click.prevent="selectBackdrop()">
       <img :src="backdrop.attributes.file_url" />
     </a>
   </li>
 </template>
 
 <script>
-import { 
-  patchMovie 
-} from '../vuex/actions/movies'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'MovieBackdrop',
+
   props: ['movie', 'backdrop'],
-  vuex: {
-  	actions: {
-      patchMovie
-    }
-  },
+
   methods: {
+    ...mapActions([
+      'patchMovie'
+    ]),
+
     selectBackdrop: function () {
       if (this.isActive) {
         return;
       }
 
-      const data = {
-        'data': {
-          'type': 'movies',
-          'id': this.movie.id,
-          'attributes': {
-            'backdrop_path': this.backdrop.attributes.file_path
+      let payload = {
+        url: '/api/movies/' +  this.movie.id,
+        json: {
+          data: {
+            type: 'movies',
+            id: this.movie.id,
+            attributes: {
+              backdrop_path: this.backdrop.attributes.file_path
+            }
           }
         }
       }
 
-      this.patchMovie(
-        this.movie.id, data
-      )
+      this.patchMovie(payload)
     }
   },
+
   computed: {
     isActive: function () {
-      var currentBackdrop = this.movie.attributes.backdrop_url
-      var backdrop = this.backdrop.attributes.file_path
+      let currentBackdrop = this.movie.attributes.backdrop_url
+      let backdrop = this.backdrop.attributes.file_path
+
       return currentBackdrop.indexOf(backdrop) > -1
     }
   }

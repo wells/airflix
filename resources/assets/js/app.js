@@ -5,18 +5,16 @@
  */
 
 import Vue from 'vue'
-import VueInfiniteScroll from 'vue-infinite-scroll'
+import _ from 'lodash'
+import Promise from 'es6-promise'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
 import VueMoment from 'vue-moment'
+import axios from 'axios'
 import store from './vuex/store'
-import { filterByGenre, filterByHasMovies, filterByHasShows, zeroPad } from './filters'
-import { configRouter } from './routes'
+import { zeroPad } from './filters'
+import { routes } from './routes'
 import { sync } from 'vuex-router-sync'
 import App from './components/App.vue'
-
-// Debug mode
-Vue.config.debug = false
 
 // Devtools enabled
 Vue.config.devtools = false
@@ -24,14 +22,14 @@ Vue.config.devtools = false
 // Silence logs and warnings
 Vue.config.silent = true
 
-// install resource
-Vue.use(VueResource)
+// install lodash
+window._ = _
 
-Vue.http.headers.common['Accept'] = 
+// install axios
+window.axios = axios
+
+axios.defaults.headers.common['Accept'] = 
   'application/vnd.api+json; version=1; charset=utf-8'
-
-// install infinite scoll
-Vue.use(VueInfiniteScroll)
 
 // install router
 Vue.use(VueRouter)
@@ -40,22 +38,21 @@ Vue.use(VueRouter)
 Vue.use(VueMoment)
 
 // register filters globally
-Vue.filter('filterByGenre', filterByGenre)
-Vue.filter('filterByHasMovies', filterByHasMovies)
-Vue.filter('filterByHasShows', filterByHasShows)
 Vue.filter('zeroPad', zeroPad)
 
 // create router
-var router = new VueRouter({
-  history: true,
-  saveScrollPosition: true
+const router = new VueRouter({
+  mode: 'history',
+  routes
 })
 
 // synchronize vue-router routes with vuex
 sync(store, router)
 
-// configure router
-configRouter(router)
+window.vueRouter = router
 
-// boostrap the app
-router.start(App, '#app')
+const app = new Vue({
+	router, 
+	store,
+	...App
+}).$mount('#app')

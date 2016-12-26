@@ -54,6 +54,6 @@ class RefreshGenres extends Command
      * @return \Airflix\Contracts\Genres
      */
     protected function genres() {
-        return app()->make(Genres::class);
+        return app(Genres::class);
     }
 }

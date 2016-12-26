@@ -1,49 +1,52 @@
 <template>
   <li>
-    <a :class="{ active : isActive }" @click.prevent="selectPoster()">
+    <a :class="{ active : isActive }" 
+        @click.prevent="selectPoster()">
       <img :src="poster.attributes.file_url" />
     </a>
   </li>
 </template>
 
 <script>
-import { 
-  patchMovie 
-} from '../vuex/actions/movies'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'MoviePoster',
+
   props: ['movie', 'poster'],
-  vuex: {
-  	actions: {
-      patchMovie
-    }
-  },
+
   methods: {
+    ...mapActions([
+      'patchMovie'
+    ]),
+
     selectPoster: function () {
       if (this.isActive) {
         return;
       }
 
-      const data = {
-        'data': {
-          'type': 'movies',
-          'id': this.movie.id,
-          'attributes': {
-            'poster_path': this.poster.attributes.file_path
+      let payload = {
+        url: '/api/movies/' + this.movie.id,
+        json: {
+          data: {
+            type: 'movies',
+            id: this.movie.id,
+            attributes: {
+              poster_path: this.poster.attributes.file_path
+            }
           }
         }
       }
 
-      this.patchMovie(
-        this.movie.id, data
-      )
+      this.patchMovie(payload)
     }
   },
+
   computed: {
     isActive: function () {
-      var currentPoster = this.movie.attributes.poster_url
-      var poster = this.poster.attributes.file_path
+      let currentPoster = this.movie.attributes.poster_url
+      let poster = this.poster.attributes.file_path
+
       return currentPoster.indexOf(poster) > -1
     }
   }

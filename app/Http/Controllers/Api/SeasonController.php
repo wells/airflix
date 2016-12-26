@@ -15,7 +15,7 @@ class SeasonController extends ApiController
      */
     protected function seasons()
     {
-        return app()->make(Seasons::class);
+        return app(Seasons::class);
     }
 
     /**

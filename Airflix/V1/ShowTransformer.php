@@ -77,7 +77,7 @@ class ShowTransformer
         $backdrops = $this->showImages()
             ->getBackdrops($show);
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\TmdbImageTransformer::class
         );
 
@@ -99,7 +99,7 @@ class ShowTransformer
     {
         $episodes = $show->episodes;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\EpisodeTransformer::class
         );
 
@@ -121,7 +121,7 @@ class ShowTransformer
     {
         $genres = $show->genres;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\GenreTransformer::class
         );
 
@@ -144,7 +144,7 @@ class ShowTransformer
         $posters = $this->showImages()
             ->getPosters($show);
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\TmdbImageTransformer::class
         );
 
@@ -167,7 +167,7 @@ class ShowTransformer
         $results = $this->showResults()
             ->get($show);
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\TmdbShowResultTransformer::class
         );
 
@@ -189,7 +189,7 @@ class ShowTransformer
     {
         $seasons = $show->seasons;
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\SeasonTransformer::class
         );
 
@@ -211,7 +211,7 @@ class ShowTransformer
     {
         $views = $show->monthlyViews();
 
-        $transformer = app()->make(
+        $transformer = app(
             Contracts\ShowViewMonthlyTransformer::class
         );
 
@@ -229,7 +229,7 @@ class ShowTransformer
      */
     protected function showImages()
     {
-        return app()->make(
+        return app(
             Contracts\ShowImages::class
         );
     }
@@ -241,7 +241,7 @@ class ShowTransformer
      */
     protected function showResults()
     {
-        return app()->make(
+        return app(
             Contracts\ShowResults::class
         );
     }

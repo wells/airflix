@@ -6,7 +6,7 @@ export default LineChart.extend({
 
   props: ['months'],
 
-  ready() {
+  mounted() {
     this.render({
       labels: this.months.map(month => month.id),
 

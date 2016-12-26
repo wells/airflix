@@ -18,13 +18,13 @@
         <meta name="apple-mobile-web-app-title" content="Airflix">
 
         <!-- Icon -->
-        <link rel="shortcut icon" href="touch-icon-iphone.png">
+        <link rel="shortcut icon" href="/touch-icon-iphone.png">
 
         <!-- iOS icons -->
-        <link rel="apple-touch-icon" href="touch-icon-iphone.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
+        <link rel="apple-touch-icon" href="/touch-icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/touch-icon-ipad-retina.png">
 
         <!-- Styles -->
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet">

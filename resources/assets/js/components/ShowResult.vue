@@ -1,6 +1,7 @@
 <template>
   <li>
-    <a :class="{ active : isActive }" @click.prevent="selectResult()">
+    <a :class="{ active : isActive }" 
+        @click.prevent="selectResult()">
       <img :src="result.attributes.poster_url" />
       <span>{{ result.attributes.name }}</span>
     </a>
@@ -8,39 +9,41 @@
 </template>
 
 <script>
-import { 
-  patchShow 
-} from '../vuex/actions/shows'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'ShowResult',
+
   props: ['show', 'result'],
-  vuex: {
-  	actions: {
-      patchShow
-    }
-  },
+
   methods: {
+    ...mapActions([
+      'patchShow'
+    ]),
+
     selectResult: function () {
       if (this.isActive) {
         return;
       }
 
-      const data = {
-        'data': {
-          'type': 'shows',
-          'id': this.show.id,
-          'attributes': {
-            'tmdb_show_id': this.result.id
+      let payload = {
+        url: '/api/shows/' + this.show.id,
+        json: {
+          data: {
+            type: 'shows',
+            id: this.show.id,
+            attributes: {
+              tmdb_show_id: this.result.id
+            }
           }
-        }
+        },
+        redirect: '/shows/' + this.show.id
       }
 
-      this.patchShow(
-        this.show.id, data, this.$route.router
-      )
+      this.patchShow(payload)
     }
   },
+
   computed: {
     isActive: function () {
       return this.result.id == this.show.attributes.tmdb_show_id

@@ -46,7 +46,7 @@
         }
       }
 
-      &.active, &.v-link-active {
+      &.active, &.router-link-active {
         a {
           color: $color-font;
           padding-left: $padding - 4px;

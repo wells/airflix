@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas v-el:canvas></canvas>
+    <canvas ref="canvas"></canvas>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import Chart from 'chart.js';
 export default Vue.extend({
   methods: {
     render(data) {
-      const options = {
+      let options = {
         type: 'line',
         data: data,
         options: {
@@ -44,8 +44,8 @@ export default Vue.extend({
         }
       }
 
-      const chart = new Chart(
-        this.$els.canvas.getContext('2d'), 
+      let chart = new Chart(
+        this.$refs.canvas.getContext('2d'), 
         options
       )
     }

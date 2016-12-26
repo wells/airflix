@@ -1,31 +1,23 @@
 {
   "private": true,
   "devDependencies": {
-    "babel-core": "^6.7.2",
-    "babel-plugin-transform-runtime": "^6.6.0",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-runtime": "^5.8.35",
+    "axios": "^0.15.3",
+    "babel-plugin-component": "^0.6.0",
+    "chart.js": "^2.4.0",
+    "es6-promise": "^4.0.5",
     "gulp": "^3.9.1",
-    "vue": "^1.0.17",
-    "vue-hot-reload-api": "^1.3.2",
-    "vueify": "^8.3.6",
-    "vueify-insert-css": "^1.0.0",
-    "vue-resource": "^0.7.0",
-    "vue-router": "^0.7.11",
-    "vuex": "^0.6.2",
-    "vuex-router-sync": "^1.0.0"
-  },
-  "dependencies": {
-    "babel": "^6.5.2",
-    "bootstrap-sass": "^3.0.0",
-    "chart.js": "^2.0.0",
-    "fine-uploader": "^5.10.0",
-    "laravel-elixir": "^4.0.0",
-    "laravel-elixir-vueify": "^1.0.2",
-    "moment": "^2.12.0",
+    "laravel-elixir": "^6.0.0-15",
+    "laravel-elixir-vue-2": "^0.2.0",
+    "laravel-elixir-webpack-official": "^1.0.10",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1",
     "moment-range": "^2.2.0",
-    "normalize.css": "^4.1.1",
-    "vue-infinite-scroll": "^0.2.2",
-    "vue-moment": "^1.0.7"
+    "normalize.css": "^4.2.0",
+    "vue": "^2.1.6",
+    "vue-moment": "^1.0.8",
+    "vue-mugen-scroll": "^0.2.1",
+    "vue-router": "^2.1.1",
+    "vuex": "^2.1.1",
+    "vuex-router-sync": "^3.0.0"
   }
 }

@@ -24,7 +24,9 @@ export const SET_SETTINGS_ATTRIBUTES = 'SET_SETTINGS_ATTRIBUTES'
 // Search Results
 export const ADD_MOVIE_RESULTS = 'ADD_MOVIE_RESULTS'
 export const ADD_SHOW_RESULTS = 'ADD_SHOW_RESULTS'
-// Mobile Menus
+// Interface
+export const LOADED_ROUTE = 'LOADED_ROUTE'
+export const LOADING_ROUTE = 'LOADING_ROUTE'
 export const HIDE_MENU = 'HIDE_MENU'
 export const TOGGLE_MENU = 'TOGGLE_MENU'
 export const TOGGLE_SEARCH = 'TOGGLE_SEARCH'

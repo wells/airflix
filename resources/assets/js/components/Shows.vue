@@ -1,28 +1,45 @@
 <template>
-<div class="shows" v-infinite-scroll="loadMore()" infinite-scroll-disabled="loading" infinite-scroll-distance="200">
-
-  <spinner v-show="$loadingRouteData" transition="loading"></spinner>
+<div class="shows">
+  <transition name="loading">
+    <spinner v-show="loadingRouteData"></spinner>
+  </transition>
 
   <!-- search -->
   <div class="search">
     <div class="fields">
-      <input class="form-control" placeholder="Keywords" :value="keywords" @input="filterShowKeywords | debounce 250">
+      <input class="form-control" 
+          placeholder="Keywords" 
+          :value="keywords" 
+          @input="filterShowKeywords" />
 
       <div class="dropdown order">
-        <select class="form-control" :value="order" @change="filterShowOrder">
-          <option v-for="option in orders" :value="option.id">{{ option.name }}</option>
+        <select class="form-control" 
+            :value="selectedOrder" 
+            @change="filterShowOrder">
+          <option v-for="option in orders" 
+              :value="option.id">
+            {{ option.name }}
+          </option>
         </select>
       </div>
 
       <div class="dropdown genres">
-        <select class="form-control" :value="selectedGenre" @change="filterShowGenres">
+        <select class="form-control" 
+            :value="selectedGenre"
+            @change="filterShowGenres">
           <option value="">All Genres</option>
-          <option v-for="option in genres | filterByHasShows | orderBy 'attributes.name'" :value="option.id">{{ option.attributes.name }}</option>
+          <option v-for="option in genres" 
+              :value="option.id">
+            {{ option.attributes.name }}
+          </option>
         </select>
       </div>
     </div>
     <div class="clear">
-      <a class="button" @click.prevent="filterReset">Clear</a>
+      <a class="button" 
+          @click.prevent="filterReset">
+        Clear
+      </a>
     </div>
   </div>
 
@@ -30,99 +47,174 @@
   <div class="results">
     <h1>Shows</h1>
     <div class="cards">
-      <show-card  v-for="show in shows | filterBy keywords in 'attributes.name'| filterByGenre selectedGenre | orderBy column direction" track-by="id" :show="show">
+      <show-card v-for="show in shows" 
+          :key="show.id" 
+          :show="show">
       </show-card>
     </div>
   </div>
+
+  <mugen-scroll :handler="loadMore" 
+      :should-handle="!loading">
+  </mugen-scroll>
 </div>
 </template>
 
 <script>
+import MugenScroll from 'vue-mugen-scroll'
 import ShowCard from './ShowCard.vue'
 import Spinner from './Spinner.vue'
-import { 
-  getShows 
-} from '../vuex/actions/shows'
-import {
-  clearFilters,
-  clearGenresFilter, 
-  filterGenres, 
-  filterKeywords, 
-  filterOrder 
-} from '../vuex/actions/filters'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Shows',
-  components: { 
+
+  components: {
+    MugenScroll,
     ShowCard,
     Spinner
   },
-  ready: function () {
-    this.$watch('links.next', function () {
-      // Automatically load paginated results
-      setTimeout(() => {
-        if(this.links.next && !this.loading) {
-          this.getShows(this.links.next)
+
+  created: function () {
+    this.loadingRoute()
+    this.clearGenresFilter()
+    this.fetchData()
+  },
+
+  watch: {
+    '$route': function () {
+      this.loadingRoute()
+      this.fetchData()
+    },
+
+    'links': function () {
+      let self = this
+
+      clearTimeout(self.loadingTimeout)
+
+      self.loadingTimeout = setTimeout(function () {
+        if(self.links && self.links.next && !self.loading) {
+          self.fetchData(self.links.next)
         }
-      }, 1000);
-    }, { deep: true })
-  },
-  vuex: {
-    getters: {
-      column: ({ filters }) => filters.attributes.shows,
-      direction: ({ filters }) => filters.direction,
-      genres: ({ genres }) => genres.all,
-      keywords: ({ filters }) => filters.keywords,
-      links: ({ shows }) => shows.links,
-      loading: ({ movies }) => movies.loading,
-      order: ({ filters }) => filters.order,
-      orders: ({ filters }) => filters.orders,
-      query: ({ filters }) => filters.queryShows,
-      selectedGenre: ({ filters }) => filters.genre,
-      shows: ({ shows }) => shows.all
-    },
-    actions: {
-      clearFilters,
-      clearGenresFilter,
-      getShows,
-      filterGenres,
-      filterKeywords,
-      filterOrder
+      }, 1000)
     }
   },
-  route: {
-    data (transition) {
-      this.clearGenresFilter()
-      this.getShows(this.url, transition)
-    }
-  },
+
   methods: {
-    loadMore: function() {
-      if (this.links.next && !this.loading && !this._inactive) {
-        this.getShows(this.links.next)
+    ...mapActions([
+      'clearFilters',
+      'clearGenresFilter',
+      'getShows',
+      'filterGenres',
+      'filterKeywords',
+      'filterOrder',
+      'loadingRoute'
+    ]),
+
+    fetchData: function (payloadUrl) {
+      if(! payloadUrl) {
+        payloadUrl = '/api/shows' + this.$store.state.filters.queryShows
       }
+
+      let payload = {
+        url: payloadUrl
+      }
+
+      this.getShows(payload)
     },
+
     filterShowGenres: function (event) {
       this.filterGenres(event)
-      this.getShows(this.url)
+      this.fetchData()
     },
-    filterShowKeywords: function (event) {
-      this.filterKeywords(event)
-      this.getShows(this.url)
-    },
+
+    filterShowKeywords: _.debounce(
+      function (event) {
+        this.filterKeywords(event)
+        this.fetchData()
+      },
+      250
+    ),
+
     filterShowOrder: function (event) {
       this.filterOrder(event)
-      this.getShows(this.url)
+      this.fetchData()
     },
+
     filterReset: function () {
       this.clearFilters()
-      this.getShows(this.url)
-    }
+      this.fetchData()
+    },
+
+    loadMore: function() {
+      if (this.links.next && !this.loading && !this._inactive) {
+        this.fetchData(this.links.next)
+      }
+    },
   },
+
   computed: {
-    url: function() {
-      return '/api/shows' + this.query
-    }
+    genres: function () {
+      return _.chain(this.$store.state.genres.all)
+        .sortBy('attributes.name')
+        // Has movies
+        .filter(function (item) { 
+          return item.attributes.total_movies > 0 
+        })
+        .value()
+    },
+
+    keywords: function () {
+      return this.$store.state.filters.keywords
+    },
+
+    links: function () {
+      return this.$store.state.shows.links
+    },
+
+    loading: function () {
+      return this.$store.state.shows.loading
+    },
+
+    loadingRouteData: function () {
+      return this.$store.state.interfaces.loadingRouteData
+    },
+
+    selectedGenre: function () {
+      return this.$store.state.filters.selectedGenre
+    },
+
+    selectedOrder: function () {
+      return this.$store.state.filters.selectedOrder
+    },
+
+    shows: function () {
+      let state = this.$store.state
+
+      let keywords = state.filters.keywords
+      let selectedGenre = state.filters.selectedGenre
+      let column = state.filters.attributes.shows
+      let direction = state.filters.direction
+
+      return _.chain(state.shows.all)
+        // Filter by keywords
+        .filter(function (item) {
+          let searchRegex = new RegExp(keywords, 'i')
+          return searchRegex.test(item.attributes.name)
+        })
+        // Filter by genre
+        .filter(function (item) { 
+          let record = item.relationships.genres.data.find(g => g.id === selectedGenre)
+          return selectedGenre == '' || record != null
+        })
+        // Order by column and direction
+        .orderBy([column], [direction])
+        .value()
+    },
+
+    orders: function () {
+      return this.$store.state.filters.orders
+    },
   }
 }
 </script>

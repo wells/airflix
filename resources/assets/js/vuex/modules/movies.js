@@ -25,7 +25,7 @@ export default {
       state.links = links
     },
     [types.ADD_MOVIE] (state, movie) {
-      addRecord(state.all, movie, 'movies')
+      addRecord(state.all, movie, 'movies', updateRelationships)
     },
     [types.ADD_MOVIES] (state, movies) {
       addRecords(state.all, movies, 'movies')
@@ -123,3 +123,20 @@ export default {
     }
   }
 }
+
+function updateRelationships (record, movie) {
+  if(!movie.relationships) {
+    return
+  }
+  record.relationships.backdrops = movie.relationships.backdrops ? 
+    movie.relationships.backdrops : record.relationships.backdrops
+  record.relationships.genres = movie.relationships.genres ? 
+    movie.relationships.genres : record.relationships.genres
+  record.relationships.posters = movie.relationships.posters ? 
+    movie.relationships.posters : record.relationships.posters
+  record.relationships.results = movie.relationships.results ? 
+    movie.relationships.results : record.relationships.results
+  record.relationships.views = movie.relationships.views ? 
+    movie.relationships.views : record.relationships.views
+}
+

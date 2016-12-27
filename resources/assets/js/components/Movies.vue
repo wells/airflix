@@ -111,30 +111,31 @@ export default {
       'loadingRoute'
     ]),
 
-    fetchData: function (payloadUrl) {
-      if(! payloadUrl) {
-        payloadUrl = '/api/movies' + this.$store.state.filters.queryMovies
-      }
+    fetchData: _.debounce(
+      function (payloadUrl) {
+        if(! payloadUrl) {
+          payloadUrl = '/api/movies' + this.$store.state.filters.queryMovies
+        }
 
-      let payload = {
-        url: payloadUrl
-      }
+        let payload = {
+          url: payloadUrl
+        }
 
-      this.getMovies(payload)
-    },
+        this.getMovies(payload)
+      }, 
+      250
+    ),
 
     filterMovieGenres: function (event) {
       this.filterGenres(event)
       this.fetchData()
     },
 
-    filterMovieKeywords: _.debounce(
-      function (event) {
-        this.filterKeywords(event)
-        this.fetchData()
-      }, 
-      250
-    ),
+    filterMovieKeywords: function (event) {
+      let self = this
+      this.filterKeywords(event)
+      this.fetchData()
+    },
 
     filterMovieOrder: function (event) {
       this.filterOrder(event)

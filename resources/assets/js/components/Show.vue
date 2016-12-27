@@ -185,11 +185,11 @@ export default {
     genres: function () {
       let state = this.$store.state
       let show = state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
 
       return show.relationships.genres.data.map(
-        ({ id }) => state.genres.all.find(g => g.id === id)
+        ({ id }) => state.genres.all.find(g => g.id == id)
       )
     },
 
@@ -200,10 +200,10 @@ export default {
     monthlyViews: function () {
       let state = this.$store.state
       let show = state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
       let showViews = show.relationships.views.data.map(
-        ({ id }) => state.views.shows.find(s => s.id === id)
+        ({ id }) => state.views.shows.find(s => s.id == id)
       )
 
       // Create a moment.js range of the past 12 months
@@ -216,7 +216,7 @@ export default {
       range.by('months', function(month) {
         let label = month.format('MM/YY')
         let view = showViews.find(
-          s => s.attributes.label === label
+          s => s.attributes.label == label
         )
         months.push({
           id: label,
@@ -230,14 +230,14 @@ export default {
     seasons: function () {
       let state = this.$store.state
       let show = state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
 
       return _.chain(
         // Map season objects to the TV show
         show.relationships.seasons.data.map(
           ({ id }) => state.seasons.all.find(
-            s => s.id === id
+            s => s.id == id
           )
         )
       )
@@ -250,7 +250,7 @@ export default {
       let state = this.$store.state
 
       return state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
     },
 

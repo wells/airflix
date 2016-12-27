@@ -199,7 +199,7 @@ export default {
         })
         // Filter by genre
         .filter(function (item) { 
-          let record = item.relationships.genres.data.find(g => g.id === selectedGenre)
+          let record = item.relationships.genres.data.find(g => g.id == selectedGenre)
           return selectedGenre == '' || record != null
         })
         // Order by column and direction

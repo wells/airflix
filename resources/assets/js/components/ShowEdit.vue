@@ -158,11 +158,11 @@ export default {
     backdrops: function () {
       let state = this.$store.state
       let show = state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
 
       return show.relationships.backdrops.data.map(
-        ({ id }) => state.images.all.find(i => i.id === id)
+        ({ id }) => state.images.all.find(i => i.id == id)
       )
     },
 
@@ -177,22 +177,22 @@ export default {
     posters: function () {
       let state = this.$store.state
       let show = state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
 
       return show.relationships.posters.data.map(
-        ({ id }) => state.images.all.find(i => i.id === id)
+        ({ id }) => state.images.all.find(i => i.id == id)
       )
     },
 
     results: function () {
       let state = this.$store.state
       let show = state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
 
       return show.relationships.results.data.map(
-        ({ id }) => state.search.shows.find(s => s.id === id)
+        ({ id }) => state.search.shows.find(s => s.id == id)
       )
     },
 
@@ -200,7 +200,7 @@ export default {
       let state = this.$store.state
 
       return state.shows.all.find(
-        s => s.id === state.shows.currentID
+        s => s.id == state.shows.currentID
       )
     }
   }

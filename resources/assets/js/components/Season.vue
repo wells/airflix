@@ -117,11 +117,11 @@ export default {
     episodes: function () {
       let state = this.$store.state
       let season = state.seasons.all.find(
-        s => s.id === state.seasons.currentID
+        s => s.id == state.seasons.currentID
       )
 
       return season.relationships.episodes.data.map(
-        ({ id }) => state.episodes.all.find(e => e.id === id)
+        ({ id }) => state.episodes.all.find(e => e.id == id)
       )
     },
 
@@ -132,10 +132,10 @@ export default {
     monthlyViews: function () {
       let state = this.$store.state
       let season = state.seasons.all.find(
-        s => s.id === state.seasons.currentID
+        s => s.id == state.seasons.currentID
       )
       let seasonViews = season.relationships.views.data.map(
-        ({ id }) => state.views.seasons.find(s => s.id === id)
+        ({ id }) => state.views.seasons.find(s => s.id == id)
       )
 
       // Create a moment.js range of the past 12 months
@@ -148,7 +148,7 @@ export default {
       range.by('months', function(month) {
         let label = month.format('MM/YY')
         let view = seasonViews.find(
-          s => s.attributes.label === label
+          s => s.attributes.label == label
         )
         months.push({
           id: label,
@@ -163,18 +163,18 @@ export default {
       let state = this.$store.state
 
       return state.seasons.all.find(
-        s => s.id === state.seasons.currentID
+        s => s.id == state.seasons.currentID
       )
     },
 
     show: function () {
       let state = this.$store.state
       let season = state.seasons.all.find(
-        s => s.id === state.seasons.currentID
+        s => s.id == state.seasons.currentID
       )
 
       return state.shows.all.find(
-        s => s.id === season.relationships.show.data.id
+        s => s.id == season.relationships.show.data.id
       )
     },
 

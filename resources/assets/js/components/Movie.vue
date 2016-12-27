@@ -165,11 +165,11 @@ export default {
     genres: function () {
       let state = this.$store.state
       let movie = state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
 
       return movie.relationships.genres.data.map(
-        ({ id }) => state.genres.all.find(g => g.id === id)
+        ({ id }) => state.genres.all.find(g => g.id == id)
       )
     },
 
@@ -180,10 +180,10 @@ export default {
     monthlyViews: function () {
       let state = this.$store.state
       let movie = state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
       let movieViews = movie.relationships.views.data.map(
-        ({ id }) => state.views.movies.find(m => m.id === id)
+        ({ id }) => state.views.movies.find(m => m.id == id)
       )
 
       // Create a moment.js range of the past 12 months
@@ -196,7 +196,7 @@ export default {
       range.by('months', function(month) {
         let label = month.format('MM/YY')
         let view = movieViews.find(
-          v => v.attributes.label === label
+          v => v.attributes.label == label
         )
 
         months.push({
@@ -212,7 +212,7 @@ export default {
       let state = this.$store.state
 
       return state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
     },
 

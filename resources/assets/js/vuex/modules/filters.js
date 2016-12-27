@@ -99,7 +99,7 @@ export default {
 }
 
 function buildFilters (state) {
-  let order = state.orders.find(o => o.id === state.selectedOrder)
+  let order = state.orders.find(o => o.id == state.selectedOrder)
 
   state.attributes.movies = 'attributes.' + order.movies
   state.attributes.shows = 'attributes.' + order.shows

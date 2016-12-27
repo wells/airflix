@@ -161,11 +161,11 @@ export default {
     backdrops: function () {
       let state = this.$store.state
       let movie = state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
 
       return movie.relationships.backdrops.data.map(
-        ({ id }) => state.images.all.find(i => i.id === id)
+        ({ id }) => state.images.all.find(i => i.id == id)
       )
     },
 
@@ -181,29 +181,29 @@ export default {
       let state = this.$store.state
 
       return state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
     },
 
     posters: function () {
       let state = this.$store.state
       let movie = state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
 
       return movie.relationships.posters.data.map(
-        ({ id }) => state.images.all.find(i => i.id === id)
+        ({ id }) => state.images.all.find(i => i.id == id)
       )
     },
 
     results: function () {
       let state = this.$store.state
       let movie = state.movies.all.find(
-        m => m.id === state.movies.currentID
+        m => m.id == state.movies.currentID
       )
 
       return movie.relationships.results.data.map(
-        ({ id }) => state.search.movies.find(m => m.id === id)
+        ({ id }) => state.search.movies.find(m => m.id == id)
       )
     }
   }

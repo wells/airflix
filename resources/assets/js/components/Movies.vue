@@ -76,17 +76,15 @@ export default {
   },
 
   created: function () {
-    this.loadingRoute()
+    if(this.movies.length == 0) {
+      this.loadingRoute()
+    }
+
     this.clearGenresFilter()
     this.fetchData()
   },
 
   watch: {
-    '$route': function () {
-      this.loadingRoute()
-      this.fetchData()
-    },
-
     'links': function () {
       let self = this
 

@@ -74,15 +74,11 @@ export default {
   },
 
   created: function () {
-    this.loadingRoute()
-    this.fetchData()
-  },
-
-  watch: {
-    '$route': function () {
+    if(!this.settings) {
       this.loadingRoute()
-      this.fetchData()
     }
+
+    this.fetchData()
   },
 
   methods: {

@@ -1,5 +1,6 @@
 <template>
-<div id="app" :class="{ 'toggle-menu' : showMenu, 'toggle-search' : showSearch  }">
+<div id="app" 
+    :class="{ 'toggle-menu' : showMenu, 'toggle-search' : showSearch  }">
   <!-- header -->
   <div id="header">
     <a class="button button-mobile" 
@@ -34,25 +35,32 @@
 
   <!-- menu -->
   <div id="navigation">
-    <a class="button button-mobile" @click.prevent="hideMenu">
+    <a class="button button-mobile" 
+        @click.prevent="hideMenu">
       <i class="material-icons">&#xE314;</i>
     </a>
 
     <ul>
-      <router-link tag="li" to="/movies">
-          <a @click="hideMenu">
-            <i class="material-icons">&#xE02C;</i>
-            Movies
-          </a>
+      <router-link tag="li" 
+          to="/movies" 
+          @click.native="hideMenu">
+        <a>
+          <i class="material-icons">&#xE02C;</i>
+          Movies
+        </a>
       </router-link>
-      <router-link tag="li" to="/shows">
-        <a @click="hideMenu">
+      <router-link tag="li" 
+          to="/shows" 
+          @click.native="hideMenu">
+        <a>
           <i class="material-icons">&#xE639;</i>
           Shows
         </a>
       </router-link>
-      <router-link tag="li" to="/settings">
-        <a @click="hideMenu">
+      <router-link tag="li" 
+          to="/settings" 
+          @click.native="hideMenu">
+        <a>
           <i class="material-icons">&#xE8B8;</i>
           Settings
         </a>
@@ -61,7 +69,9 @@
   </div>
 
   <!-- overlay -->
-  <a id="overlay" @click.prevent="toggleMenu"></a>
+  <a id="overlay" 
+      @click.prevent="toggleMenu">
+  </a>
 
   <!-- main view -->
   <div id="content">

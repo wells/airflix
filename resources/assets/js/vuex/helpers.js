@@ -8,7 +8,7 @@ export function addRecords (records, newRecords, type) {
   })
 }
 
-export function addRecord (records, newRecord, type) {
+export function addRecord (records, newRecord, type, callback) {
   if(!newRecord || newRecord.type != type) {
     return
   }
@@ -16,12 +16,21 @@ export function addRecord (records, newRecord, type) {
   // Find record index (if any)
   let index = records.findIndex(r => r.id == newRecord.id)
 
-  // Update record
-  if (index !== -1) {
-    records[index] = newRecord
+  // Add record
+  if (index == -1) {
+    records.push(newRecord)
     return
   }
 
-  // Add record
-  records.push(newRecord)
+  // Update record with callback
+  if (callback) {
+    records[index].attributes = newRecord.attributes
+    records[index].links = newRecord.links
+
+    callback(records[index], newRecord)
+    return
+  }
+
+  // Replace record
+  records.splice(index, 1, newRecord)
 }

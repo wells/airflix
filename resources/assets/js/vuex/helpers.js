@@ -1,37 +1,27 @@
-export function addRecords (records, newRecords, type, callback) {
+export function addRecords (records, newRecords, type) {
   if (!newRecords) {
     return
   }
 
   newRecords.forEach(newRecord => {
-    addRecord(records, newRecord, type, callback)
+    addRecord(records, newRecord, type)
   })
 }
 
-export function addRecord (records, newRecord, type, callback) {
+export function addRecord (records, newRecord, type) {
   if(!newRecord || newRecord.type != type) {
     return
   }
 
-  var record = records.find(r => r.id === newRecord.id)
-  
-  if (!record) {
-    records.push(newRecord)
-  } else if (callback) {
-    record.attributes = newRecord.attributes
-    record.links = newRecord.links
-    
-    callback(record, newRecord)
-  } else {
-    record.attributes = newRecord.attributes
-    record.links = newRecord.links
+  // Find record index (if any)
+  let index = records.findIndex(r => r.id == newRecord.id)
 
-    if(!newRecord.relationships) {
-      record.relationships = {};
-      return;
-    }
-
-    record.relationships = newRecord.relationships ? 
-      newRecord.relationships : record.relationships
+  // Update record
+  if (index !== -1) {
+    records[index] = newRecord
+    return
   }
+
+  // Add record
+  records.push(newRecord)
 }

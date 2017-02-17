@@ -29,8 +29,8 @@ Route::get('downloads/movies/{id}', [
     'uses' => 'MovieDownloadController@show'
 ]);
 
-// Load the SPA
+// Load the SPA from any route that does not start with __
 Route::get('{path?}', [
     'as' => 'home',
     'uses' => 'HomeController@index'
-])->where('path', '.+');
+])->where('path', '^(?!__).+');

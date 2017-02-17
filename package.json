@@ -1,15 +1,17 @@
 {
   "private": true,
+  "scripts": {
+    "dev": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "node node_modules/cross-env/bin/cross-env.js NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
   "devDependencies": {
     "axios": "^0.15.3",
-    "babel-plugin-component": "^0.6.0",
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "chart.js": "^2.4.0",
-    "es6-promise": "^4.0.5",
-    "gulp": "^3.9.1",
-    "laravel-elixir": "^6.0.0-15",
-    "laravel-elixir-vue-2": "^0.2.0",
-    "laravel-elixir-webpack-official": "^1.0.10",
-    "lodash": "^4.17.2",
+    "laravel-mix": "^0.7.2",
+    "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "moment-range": "^2.2.0",
     "normalize.css": "^4.2.0",

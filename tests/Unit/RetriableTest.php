@@ -1,6 +1,9 @@
 <?php
 
+namespace Tests\Unit;
+
 use Airflix\Retriable;
+use Tests\TestCase;
 
 class RetriesImpl {
     use Retriable;

@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
+use Airflix\Episode;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Airflix\Episode;
 
 class EpisodeDownloadTest extends TestCase
 {
@@ -21,7 +24,8 @@ class EpisodeDownloadTest extends TestCase
     /** @test */
     public function it_fails_to_download_a_episode()
     {
-        $this->get('/downloads/episodes/'.$this->episode->uuid)
-            ->assertResponseStatus(404);
+        $response = $this->get('/downloads/episodes/'.$this->episode->uuid);
+        
+        $response->assertStatus(404);
     }
 }

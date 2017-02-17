@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Feature;
+
+use Airflix\Genre;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Airflix\Genre;
 
 class GenresApiTest extends TestCase
 {
@@ -21,13 +24,15 @@ class GenresApiTest extends TestCase
     /** @test */
     public function it_fetches_genres()
     {
-        $this->json('GET', '/api/genres')
-            ->seeJson([
-                'name' => $this->genre->name,
-            ])
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', '/api/genres');
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'id' => $this->genre->uuid,
+        ]);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Feature;
+
+use Airflix\Movie;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Airflix\Movie;
 
 class MovieDownloadTest extends TestCase
 {
@@ -21,7 +24,8 @@ class MovieDownloadTest extends TestCase
     /** @test */
     public function it_fails_to_download_a_movie()
     {
-        $this->get('/downloads/movies/'.$this->movie->uuid)
-            ->assertResponseStatus(404);
+        $response = $this->get('/downloads/movies/'.$this->movie->uuid);
+        
+        $response->assertStatus(404);
     }
 }

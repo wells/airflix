@@ -1,11 +1,15 @@
 <?php
 
+namespace Tests\Feature;
+
+use Mockery as M;
+use Airflix\Movie;
+use Tests\TestCase;
+use Airflix\Contracts;
+use Tmdb\Laravel\Facades\Tmdb;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Mockery as M;
-use Airflix\Contracts;
-use Airflix\Movie;
 
 class MovieRemoteApiTest extends TestCase
 {
@@ -42,11 +46,13 @@ class MovieRemoteApiTest extends TestCase
 
         $url = '/api/movies/'.$this->movie->uuid.'/backdrops';
 
-        $this->json('GET', $url)
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', $url);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 
     /** @test */
@@ -65,8 +71,9 @@ class MovieRemoteApiTest extends TestCase
             ],
         ];
 
-        $this->json('PATCH', $url, $data)
-            ->assertResponseStatus(201);
+        $response = $this->json('PATCH', $url, $data);
+        
+        $response->assertStatus(201);
     }
 
     /** @test */
@@ -81,11 +88,13 @@ class MovieRemoteApiTest extends TestCase
 
         $url = '/api/movies/'.$this->movie->uuid.'/posters';
 
-        $this->json('GET', $url)
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', $url);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 
     /** @test */
@@ -104,8 +113,9 @@ class MovieRemoteApiTest extends TestCase
             ],
         ];
 
-        $this->json('PATCH', $url, $data)
-            ->assertResponseStatus(201);
+        $response = $this->json('PATCH', $url, $data);
+        
+        $response->assertStatus(201);
     }
 
     /** @test */
@@ -120,11 +130,13 @@ class MovieRemoteApiTest extends TestCase
 
         $url = '/api/movies/'.$this->movie->uuid.'/results';
 
-        $this->json('GET', $url)
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', $url);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 
     /** @test */
@@ -150,7 +162,8 @@ class MovieRemoteApiTest extends TestCase
             ],
         ];
 
-        $this->json('PATCH', $url, $data)
-            ->assertResponseStatus(201);
+        $response = $this->json('PATCH', $url, $data);
+
+        $response->assertStatus(201);
     }
 }

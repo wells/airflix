@@ -1,11 +1,15 @@
 <?php
 
+namespace Tests\Feature;
+
+use Airflix\Show;
+use Mockery as M;
+use Tests\TestCase;
+use Airflix\Contracts;
+use Tmdb\Laravel\Facades\Tmdb;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Mockery as M;
-use Airflix\Contracts;
-use Airflix\Show;
 
 class ShowRemoteApiTest extends TestCase
 {
@@ -42,11 +46,13 @@ class ShowRemoteApiTest extends TestCase
 
         $url = '/api/shows/'.$this->show->uuid.'/backdrops';
 
-        $this->json('GET', $url)
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', $url);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 
     /** @test */
@@ -65,8 +71,9 @@ class ShowRemoteApiTest extends TestCase
             ],
         ];
 
-        $this->json('PATCH', $url, $data)
-            ->assertResponseStatus(201);
+        $response = $this->json('PATCH', $url, $data);
+
+        $response->assertStatus(201);
     }
 
     /** @test */
@@ -81,11 +88,13 @@ class ShowRemoteApiTest extends TestCase
 
         $url = '/api/shows/'.$this->show->uuid.'/posters';
 
-        $this->json('GET', $url)
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', $url);
+        
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 
     /** @test */
@@ -104,14 +113,15 @@ class ShowRemoteApiTest extends TestCase
             ],
         ];
 
-        $this->json('PATCH', $url, $data)
-            ->assertResponseStatus(201);
+        $response = $this->json('PATCH', $url, $data);
+
+        $response->assertStatus(201);
     }
 
     /** @test */
     public function it_fetches_show_results()
     {
-        $tmdbSearch = Mockery::mock('Tmdb\Api\Search');
+        $tmdbSearch = M::mock('Tmdb\Api\Search');
         $tmdbSearch->shouldReceive('searchTv')
             ->once()->andReturn(null);
 
@@ -120,11 +130,13 @@ class ShowRemoteApiTest extends TestCase
 
         $url = '/api/shows/'.$this->show->uuid.'/results';
 
-        $this->json('GET', $url)
-            ->seeJsonStructure([
-                'data',
-                'meta',
-            ]);
+        $response = $this->json('GET', $url);
+        
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data',
+            'meta',
+        ]);
     }
 
     /** @test */
@@ -132,7 +144,7 @@ class ShowRemoteApiTest extends TestCase
     {
         $this->imageClient->shouldReceive('download')->times(2);
 
-        $tmdbShows = Mockery::mock('Tmdb\Api\Shows');
+        $tmdbShows = M::mock('Tmdb\Api\Shows');
         $tmdbShows->shouldReceive('getTvshow')
             ->once()->andReturn(null);
 
@@ -150,7 +162,8 @@ class ShowRemoteApiTest extends TestCase
             ],
         ];
 
-        $this->json('PATCH', $url, $data)
-            ->assertResponseStatus(201);
+        $response = $this->json('PATCH', $url, $data);
+
+        $response->assertStatus(201);
     }
 }

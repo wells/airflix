@@ -1,24 +1,24 @@
-// Import components
-import Movies from './components/Movies.vue'
-import Movie from './components/Movie.vue'
-import MovieEdit from './components/MovieEdit.vue'
-import Settings from './components/Settings.vue'
-import Shows from './components/Shows.vue'
-import Show from './components/Show.vue'
-import ShowEdit from './components/ShowEdit.vue'
-import Season from './components/Season.vue'
-import NotFound from './components/NotFound.vue'
+// Import screens
+import MoviesScreen from './components/screens/MoviesScreen.vue'
+import MovieScreen from './components/screens/MovieScreen.vue'
+import MovieEditScreen from './components/screens/MovieEditScreen.vue'
+import SettingsScreen from './components/screens/SettingsScreen.vue'
+import ShowsScreen from './components/screens/ShowsScreen.vue'
+import ShowScreen from './components/screens/ShowScreen.vue'
+import ShowEditScreen from './components/screens/ShowEditScreen.vue'
+import SeasonScreen from './components/screens/SeasonScreen.vue'
+import NotFoundScreen from './components/screens/NotFoundScreen.vue'
   
 export const routes = [
   { path: '/', redirect: '/movies' },
-  { path: '/movies', component: Movies },
-  { path: '/movies/:id', component: Movie },
-  { path: '/movies/:id/edit', component: MovieEdit },
-  { path: '/settings', component: Settings },
-  { path: '/shows', component: Shows },
-  { path: '/shows/:id', component: Show },
-  { path: '/shows/:id/edit', component: ShowEdit },
-  { path: '/shows/seasons/:id', component: Season },
+  { path: '/movies', component: MoviesScreen },
+  { path: '/movies/:id', component: MovieScreen },
+  { path: '/movies/:id/edit', component: MovieEditScreen },
+  { path: '/settings', component: SettingsScreen },
+  { path: '/shows', component: ShowsScreen },
+  { path: '/shows/:id', component: ShowScreen },
+  { path: '/shows/:id/edit', component: ShowEditScreen },
+  { path: '/shows/seasons/:id', component: SeasonScreen },
   // Not Found Handler
-  { path: '*', component: NotFound }
+  { path: '*', component: NotFoundScreen }
 ]

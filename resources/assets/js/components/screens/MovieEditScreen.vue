@@ -91,10 +91,10 @@
 </template>
 
 <script>
-import MovieBackdrop from './MovieBackdrop.vue'
-import MoviePoster from './MoviePoster.vue'
-import MovieResult from './MovieResult.vue'
-import Spinner from './Spinner.vue'
+import MovieBackdrop from '../partials/MovieBackdrop.vue'
+import MoviePoster from '../partials/MoviePoster.vue'
+import MovieResult from '../partials/MovieResult.vue'
+import Spinner from '../statuses/Spinner.vue'
 import { mapActions } from 'vuex'
 
 export default {

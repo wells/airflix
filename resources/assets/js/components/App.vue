@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import Toast from './Toast.vue'
+import Toast from './statuses/Toast.vue'
 import { mapActions } from 'vuex'
 
 export default {

@@ -6,7 +6,6 @@
 
 import Vue from 'vue'
 import _ from 'lodash'
-import Promise from 'es6-promise'
 import VueRouter from 'vue-router'
 import VueMoment from 'vue-moment'
 import axios from 'axios'
@@ -52,7 +51,7 @@ sync(store, router)
 window.vueRouter = router
 
 const app = new Vue({
-	router, 
-	store,
-	...App
+  router, 
+  store,
+  ...App
 }).$mount('#app')

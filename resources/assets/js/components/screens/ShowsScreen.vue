@@ -1,5 +1,5 @@
 <template>
-<div class="movies">
+<div class="shows">
   <transition name="loading">
     <spinner v-show="loadingRouteData"></spinner>
   </transition>
@@ -10,12 +10,12 @@
       <input class="form-control" 
           placeholder="Keywords" 
           :value="keywords" 
-          @input="filterMovieKeywords" />
+          @input="filterShowKeywords" />
 
       <div class="dropdown order">
         <select class="form-control" 
             :value="selectedOrder" 
-            @change="filterMovieOrder">
+            @change="filterShowOrder">
           <option v-for="option in orders" 
               :value="option.id">
             {{ option.name }}
@@ -25,8 +25,8 @@
 
       <div class="dropdown genres">
         <select class="form-control" 
-            :value="selectedGenre" 
-            @change="filterMovieGenres">
+            :value="selectedGenre"
+            @change="filterShowGenres">
           <option value="">All Genres</option>
           <option v-for="option in genres" 
               :value="option.id">
@@ -45,12 +45,12 @@
 
   <!-- results -->
   <div class="results">
-    <h1>Movies</h1>
+    <h1>Shows</h1>
     <div class="cards">
-      <movie-card v-for="movie in movies" 
-          :key="movie.id" 
-          :movie="movie">
-      </movie-card>
+      <show-card v-for="show in shows" 
+          :key="show.id" 
+          :show="show">
+      </show-card>
     </div>
   </div>
 
@@ -61,22 +61,22 @@
 </template>
 
 <script>
-import MovieCard from './MovieCard.vue'
 import MugenScroll from 'vue-mugen-scroll'
-import Spinner from './Spinner.vue'
+import ShowCard from '../partials/ShowCard.vue'
+import Spinner from '../statuses/Spinner.vue'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Movies',
+  name: 'Shows',
 
-  components: { 
-    MovieCard,
+  components: {
     MugenScroll,
+    ShowCard,
     Spinner
   },
 
   created: function () {
-    if(this.movies.length == 0) {
+    if(this.shows.length <= 1) {
       this.loadingRoute()
     }
 
@@ -102,7 +102,7 @@ export default {
     ...mapActions([
       'clearFilters',
       'clearGenresFilter',
-      'getMovies',
+      'getShows',
       'filterGenres',
       'filterKeywords',
       'filterOrder',
@@ -112,30 +112,29 @@ export default {
     fetchData: _.debounce(
       function (payloadUrl) {
         if(! payloadUrl) {
-          payloadUrl = '/api/movies' + this.$store.state.filters.queryMovies
+          payloadUrl = '/api/shows' + this.$store.state.filters.queryShows
         }
 
         let payload = {
           url: payloadUrl
         }
 
-        this.getMovies(payload)
+        this.getShows(payload)
       }, 
       250
     ),
 
-    filterMovieGenres: function (event) {
+    filterShowGenres: function (event) {
       this.filterGenres(event)
       this.fetchData()
     },
 
-    filterMovieKeywords: function (event) {
-      let self = this
+    filterShowKeywords: function (event) {
       this.filterKeywords(event)
       this.fetchData()
     },
 
-    filterMovieOrder: function (event) {
+    filterShowOrder: function (event) {
       this.filterOrder(event)
       this.fetchData()
     },
@@ -145,14 +144,11 @@ export default {
       this.fetchData()
     },
 
-    loadMore: _.throttle(
-      function () {
-        if (this.links && this.links.next && !this.loading) {
-          this.fetchData(this.links.next)
-        }
-      },
-      500
-    )
+    loadMore: function() {
+      if (this.links.next && !this.loading && !this._inactive) {
+        this.fetchData(this.links.next)
+      }
+    },
   },
 
   computed: {
@@ -171,30 +167,38 @@ export default {
     },
 
     links: function () {
-      return this.$store.state.movies.links
+      return this.$store.state.shows.links
     },
 
     loading: function () {
-      return this.$store.state.movies.loading
+      return this.$store.state.shows.loading
     },
 
     loadingRouteData: function () {
       return this.$store.state.interfaces.loadingRouteData
     },
 
-    movies: function () {
+    selectedGenre: function () {
+      return this.$store.state.filters.selectedGenre
+    },
+
+    selectedOrder: function () {
+      return this.$store.state.filters.selectedOrder
+    },
+
+    shows: function () {
       let state = this.$store.state
 
       let keywords = state.filters.keywords
       let selectedGenre = state.filters.selectedGenre
-      let column = state.filters.attributes.movies
+      let column = state.filters.attributes.shows
       let direction = state.filters.direction
 
-      return _.chain(state.movies.all)
+      return _.chain(state.shows.all)
         // Filter by keywords
         .filter(function (item) {
           let searchRegex = new RegExp(keywords, 'i')
-          return searchRegex.test(item.attributes.title)
+          return searchRegex.test(item.attributes.name)
         })
         // Filter by genre
         .filter(function (item) { 
@@ -209,14 +213,6 @@ export default {
     orders: function () {
       return this.$store.state.filters.orders
     },
-
-    selectedGenre: function () {
-      return this.$store.state.filters.selectedGenre
-    },
-
-    selectedOrder: function () {
-      return this.$store.state.filters.selectedOrder
-    }
   }
 }
 </script>

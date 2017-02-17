@@ -71,9 +71,9 @@
 <script>
 import moment from 'moment'
 import range from 'moment-range'
-import Episode from './Episode.vue'
-import MonthlyChart from './MonthlyChart.vue'
-import Spinner from './Spinner.vue'
+import Episode from '../partials/Episode.vue'
+import MonthlyChart from '../charts/MonthlyChart.vue'
+import Spinner from '../statuses/Spinner.vue'
 import { mapActions } from 'vuex'
 
 export default {

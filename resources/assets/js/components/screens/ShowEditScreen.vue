@@ -88,10 +88,10 @@
 </template>
 
 <script>
-import ShowBackdrop from './ShowBackdrop.vue'
-import ShowPoster from './ShowPoster.vue'
-import ShowResult from './ShowResult.vue'
-import Spinner from './Spinner.vue'
+import ShowBackdrop from '../partials/ShowBackdrop.vue'
+import ShowPoster from '../partials/ShowPoster.vue'
+import ShowResult from '../partials/ShowResult.vue'
+import Spinner from '../statuses/Spinner.vue'
 import { mapActions } from 'vuex'
 
 export default {

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import Spinner from './Spinner.vue'
+import Spinner from '../statuses/Spinner.vue'
 import { mapActions } from 'vuex'
 
 export default {

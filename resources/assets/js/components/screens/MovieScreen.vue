@@ -1,40 +1,28 @@
 <template>
-<div class="show">
+<div class="movie">
   <transition name="loading">
     <spinner v-show="loadingRouteData"></spinner>
   </transition>
 
   <div v-if="!loadingRouteData">
-    <img :src="show.attributes.backdrop_url" />
-    
+    <img :src="movie.attributes.backdrop_url" />
+
     <h1>
-      {{ show.attributes.name }}
+      {{ movie.attributes.title }}
     </h1>
 
-    <router-link class="button button-desktop" 
-        to="/shows">
-      <i class="material-icons">&#xE639;</i> Shows
+    <router-link class="button button-desktop" to="/movies">
+      <i class="material-icons">&#xE02C;</i> Movies
     </router-link>
+    <a class="button" 
+        :class="{ disabled: isDisabled }" 
+        :href="'/downloads/movies/' + movie.id">
+      <i class="material-icons">&#xE039;</i> Watch
+    </a>
     <router-link class="button" 
-        :to="{ path: '/shows/' + show.id + '/edit' }">
+        :to="{ path: '/movies/' + movie.id + '/edit' }">
       <i class="material-icons">&#xE254;</i> Edit
     </router-link>
-
-    <div v-if="show.relationships.seasons">
-      <h2>
-        <i class="material-icons">&#xE04A;</i>
-        Seasons
-      </h2>
-
-      <ul class="grid">
-        <li v-for="season in seasons">
-          <router-link class="button" 
-              :to="{ path: '/shows/seasons/' + season.id }">
-            {{ season.attributes.name }}
-          </router-link>
-        </li>
-      </ul>
-    </div>
 
     <div class="overview">
       <h2>
@@ -42,61 +30,49 @@
         Overview
       </h2>
 
-      <img v-if="show.attributes.poster_url" 
-          :src="show.attributes.poster_url" />
+      <img v-if="movie.attributes.poster_url" 
+          :src="movie.attributes.poster_url" />
 
       <p>
-        {{ show.attributes.overview }}
+      {{ movie.attributes.overview }}
       </p>
     </div>
 
     <a class="button" 
         target="_blank" 
-        :href="show.attributes.tmdb_url">
+        :href="movie.attributes.tmdb_url">
       <i class="material-icons">&#xE157;</i> TMDB
     </a>
     <a class="button" 
         target="_blank" 
-        :href="show.attributes.imdb_url" 
-        v-if="show.attributes.imdb_url">
+        :href="movie.attributes.imdb_url" 
+        v-if="movie.attributes.imdb_url">
       <i class="material-icons">&#xE157;</i> IMDB
-    </a>
-    <a class="button" 
-        target="_blank" 
-        :href="show.attributes.tvdb_url" 
-        v-if="show.attributes.tvdb_url">
-      <i class="material-icons">&#xE157;</i> TVDB
     </a>
 
     <ul class="tags">
       <li>
-        <div class="key">Total Seasons:</div>
+        <div class="key">Runtime:</div>
         <div class="value">
-          {{ show.attributes.number_of_seasons }}
+          {{ movie.attributes.runtime }} minutes
         </div>
       </li>
       <li>
-        <div class="key">Total Episodes:</div>
+        <div class="key">Release Date:</div>
         <div class="value">
-          {{ show.attributes.number_of_episodes }}
+          {{ movie.attributes.release_date | moment("MMMM Do Y") }}
         </div>
       </li>
-      <li>
-        <div class="key">Average Runtime:</div> 
+      <li v-if="movie.attributes.budget != '$0'">
+        <div class="key">Budget:</div>
         <div class="value">
-          {{ show.attributes.average_runtime }} minutes
+          {{ movie.attributes.budget }}
         </div>
       </li>
-      <li>
-        <div class="key">First Air Date:</div>
+      <li v-if="movie.attributes.revenue != '$0'">
+        <div class="key">Revenue:</div>
         <div class="value">
-          {{ show.attributes.first_air_date | moment("MMMM Do Y") }}
-        </div>
-      </li>
-      <li>
-        <div class="key">Last Air Date:</div>
-        <div class="value">
-          {{ show.attributes.last_air_date | moment("MMMM Do Y") }}
+          {{ movie.attributes.revenue }}
         </div>
       </li>
     </ul>
@@ -106,13 +82,13 @@
       Genres
     </h2>
 
-    <ul class="tags" v-if="show.relationships.genres">
+    <ul class="tags" v-if="movie.relationships.genres">
       <li v-for="genre in genres">
         {{ genre.attributes.name }}
       </li>
     </ul>
 
-    <div v-if="show.relationships.views">
+    <div v-if="movie.relationships.views">
       <h2>
         <i class="material-icons">&#xE922;</i>
         Stats
@@ -122,7 +98,7 @@
         <li>
           <div class="key">Overall Views:</div>
           <div class="value">
-            {{ show.attributes.total_views }}
+            {{ movie.attributes.total_views }}
           </div>
         </li>
         <li>
@@ -141,12 +117,12 @@
 <script>
 import moment from 'moment'
 import range from 'moment-range'
-import MonthlyChart from './MonthlyChart.vue'
-import Spinner from './Spinner.vue'
+import MonthlyChart from '../charts/MonthlyChart.vue'
+import Spinner from '../statuses/Spinner.vue'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Show',
+  name: 'Movie',
 
   components: {
     MonthlyChart,
@@ -167,28 +143,32 @@ export default {
 
   methods: {
     ...mapActions([
-      'getShow',
+      'getMovie',
       'loadingRoute'
     ]),
 
     fetchData: function () {
       let payload = {
         id: this.$route.params.id,
-        url: '/api/shows/' + this.$route.params.id
+        url: '/api/movies/' + this.$route.params.id
       }
 
-      this.getShow(payload)
+      this.getMovie(payload)
     }
   },
 
   computed: {
+    isDisabled: function () {
+      return ! this.movie.attributes.has_file
+    },
+
     genres: function () {
       let state = this.$store.state
-      let show = state.shows.all.find(
-        s => s.id == state.shows.currentID
+      let movie = state.movies.all.find(
+        m => m.id == state.movies.currentID
       )
 
-      return show.relationships.genres.data.map(
+      return movie.relationships.genres.data.map(
         ({ id }) => state.genres.all.find(g => g.id == id)
       )
     },
@@ -199,11 +179,11 @@ export default {
 
     monthlyViews: function () {
       let state = this.$store.state
-      let show = state.shows.all.find(
-        s => s.id == state.shows.currentID
+      let movie = state.movies.all.find(
+        m => m.id == state.movies.currentID
       )
-      let showViews = show.relationships.views.data.map(
-        ({ id }) => state.views.shows.find(s => s.id == id)
+      let movieViews = movie.relationships.views.data.map(
+        ({ id }) => state.views.movies.find(m => m.id == id)
       )
 
       // Create a moment.js range of the past 12 months
@@ -215,9 +195,10 @@ export default {
       // Create records for past 12 months and merge API data
       range.by('months', function(month) {
         let label = month.format('MM/YY')
-        let view = showViews.find(
-          s => s.attributes.label == label
+        let view = movieViews.find(
+          v => v.attributes.label == label
         )
+
         months.push({
           id: label,
           total: view ? view.attributes.total : 0,
@@ -227,30 +208,11 @@ export default {
       return months
     },
 
-    seasons: function () {
-      let state = this.$store.state
-      let show = state.shows.all.find(
-        s => s.id == state.shows.currentID
-      )
-
-      return _.chain(
-        // Map season objects to the TV show
-        show.relationships.seasons.data.map(
-          ({ id }) => state.seasons.all.find(
-            s => s.id == id
-          )
-        )
-      )
-      // Order by season number
-      .orderBy(['attributes.season_number'], ['asc'])
-      .value()
-    },
-
-    show: function () { 
+    movie: function () {
       let state = this.$store.state
 
-      return state.shows.all.find(
-        s => s.id == state.shows.currentID
+      return state.movies.all.find(
+        m => m.id == state.movies.currentID
       )
     },
 

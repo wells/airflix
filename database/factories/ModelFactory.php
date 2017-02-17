@@ -13,8 +13,8 @@
 
 $factory->define(Airflix\Episode::class, function (Faker\Generator $faker) {
     return [
-        'show_id' =>  factory(Airflix\Show::class)->create()->id ,
-        'season_id' =>  factory(Airflix\Season::class)->create()->id ,
+        'show_id' =>  factory(Airflix\Show::class)->create()->id,
+        'season_id' =>  factory(Airflix\Season::class)->create()->id,
         'uuid' =>  $faker->word ,
         'show_uuid' =>  $faker->word ,
         'season_uuid' =>  $faker->word ,

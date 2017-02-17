@@ -12,23 +12,21 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.3.*",
-        "league/glide-laravel": "^1.0",
-        "league/fractal": "^0.14.0",
-        "predis/predis": "~1.0",
-        "php-tmdb/laravel": "~1.0",
         "guzzlehttp/guzzle": "~5.0",
+        "laravel/framework": "5.4.*",
+        "laravel/tinker": "^1.0",
+        "league/fractal": "^0.14.0",
+        "league/glide-laravel": "^1.0",
+        "php-tmdb/laravel": "~1.0",
+        "predis/predis": "~1.0",
         "ramsey/uuid": "^3.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
-        "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*",
-        "mpociot/laravel-test-factory-helper": "^0.3.0",
-        "itsgoingd/clockwork": "~1.11.1",
-        "fitztrev/query-tracer": "^1.0"
+        "phpunit/phpunit": "~5.7",
+        "mpociot/laravel-test-factory-helper": "^0.4.0",
+        "itsgoingd/clockwork": "~1.13.1"
     },
     "autoload": {
         "classmap": [
@@ -40,9 +38,9 @@
         }
     },
     "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "scripts": {
         "post-root-package-install": [
@@ -61,6 +59,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }

@@ -46,6 +46,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => public_path(),
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
         
@@ -71,10 +72,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key'    => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key' => env('AWS_KEY'),
+            'secret' => env('AWS_SECRET'),
+            'region' => env('AWS_REGION'),
+            'bucket' => env('AWS_BUCKET'),
         ],
 
         'rackspace' => [

@@ -12,7 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
         <!-- Styles -->
-        <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
         <style>
             html, body {

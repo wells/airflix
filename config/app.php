@@ -150,34 +150,20 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Package Service Providers...
+         */
+        Clockwork\Support\Laravel\ClockworkServiceProvider::class,
+        Laravel\Tinker\TinkerServiceProvider::class,
+        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+        Tmdb\Laravel\TmdbServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        /*
-         * The Movie Database
-         */
-        Tmdb\Laravel\TmdbServiceProvider::class,
-
-        /*
-         * Laravel Test Factory Helper
-         * Command: php artisan test-factory-helper:generate --reset --dir
-         * Run on homestead
-         */
-        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
-
-        /*
-         * Clockwork
-         */
-        Clockwork\Support\Laravel\ClockworkServiceProvider::class,
-
-        /*
-         * Laravel Tinker
-         */
-        Laravel\Tinker\TinkerServiceProvider::class,
 
     ],
 
@@ -227,8 +213,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        // The Movie Database
-        'Tmdb' => Tmdb\Laravel\Facades\Tmdb::class
+        // Package Facades...
+        'Clockwork' => Clockwork\Support\Laravel\Facade::class,
+        'Tmdb' => Tmdb\Laravel\Facades\Tmdb::class,
 
     ],
 

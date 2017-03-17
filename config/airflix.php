@@ -10,7 +10,12 @@ return [
     ],
 
     'extensions' => [
-        'video' => env('AIRFLIX_EXTENSIONS_VIDEO', 'm4v'),
+        'video' => array_map('trim',
+            array_filter(
+                explode(',', env('AIRFLIX_EXTENSIONS_VIDEO', 'm4v, mp4')),
+                'strlen'
+            )
+        ),
     ],
 
     'per_page' => 100,

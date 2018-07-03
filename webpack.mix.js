@@ -25,8 +25,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
         'vuex',
         'vuex-router-sync'
     ])
-    .sass('resources/assets/sass/app.scss', 'public/css');
-
-if (mix.config.inProduction) {
-    mix.version();
-}
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sourceMaps()
+    .version();

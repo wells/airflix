@@ -7,16 +7,17 @@
   <!-- search -->
   <div class="search">
     <div class="fields">
-      <input class="form-control" 
-          placeholder="Keywords" 
-          :value="keywords" 
+      <input class="form-control"
+          placeholder="Keywords"
+          :value="keywords"
           @input="filterMovieKeywords" />
 
       <div class="dropdown order">
-        <select class="form-control" 
-            :value="selectedOrder" 
+        <select class="form-control"
+            :value="selectedOrder"
             @change="filterMovieOrder">
-          <option v-for="option in orders" 
+          <option v-for="option in orders"
+              :key="option.id"
               :value="option.id">
             {{ option.name }}
           </option>
@@ -24,11 +25,12 @@
       </div>
 
       <div class="dropdown genres">
-        <select class="form-control" 
-            :value="selectedGenre" 
+        <select class="form-control"
+            :value="selectedGenre"
             @change="filterMovieGenres">
           <option value="">All Genres</option>
-          <option v-for="option in genres" 
+          <option v-for="option in genres"
+              :key="option.id"
               :value="option.id">
             {{ option.attributes.name }}
           </option>
@@ -36,7 +38,7 @@
       </div>
     </div>
     <div class="clear">
-      <a class="button" 
+      <a class="button"
           @click.prevent="filterReset">
         Clear
       </a>
@@ -47,14 +49,14 @@
   <div class="results">
     <h1>Movies</h1>
     <div class="cards">
-      <movie-card v-for="movie in movies" 
-          :key="movie.id" 
+      <movie-card v-for="movie in movies"
+          :key="movie.id"
           :movie="movie">
       </movie-card>
     </div>
   </div>
 
-  <mugen-scroll :handler="loadMore" 
+  <mugen-scroll :handler="loadMore"
       :should-handle="!loading">
   </mugen-scroll>
 </div>
@@ -69,7 +71,7 @@ import { mapActions } from 'vuex'
 export default {
   name: 'Movies',
 
-  components: { 
+  components: {
     MovieCard,
     MugenScroll,
     Spinner
@@ -120,7 +122,7 @@ export default {
         }
 
         this.getMovies(payload)
-      }, 
+      },
       250
     ),
 
@@ -159,8 +161,8 @@ export default {
       return _.chain(this.$store.state.genres.all)
         .sortBy('attributes.name')
         // Has movies
-        .filter(function (item) { 
-          return item.attributes.total_movies > 0 
+        .filter(function (item) {
+          return item.attributes.total_movies > 0
         })
         .value()
     },
@@ -196,7 +198,7 @@ export default {
           return searchRegex.test(item.attributes.title)
         })
         // Filter by genre
-        .filter(function (item) { 
+        .filter(function (item) {
           let record = item.relationships.genres.data.find(g => g.id == selectedGenre)
           return selectedGenre == '' || record != null
         })

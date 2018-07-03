@@ -11,7 +11,7 @@
       {{ show.attributes.name }} &ndash; {{ season.attributes.name }}
     </h1>
 
-    <router-link class="button" 
+    <router-link class="button"
         :to="{ path: '/shows/' + show.id }">
       <i class="material-icons">&#xE5C4;</i> {{ show.attributes.name }}
     </router-link>
@@ -22,7 +22,7 @@
         Overview
       </h2>
 
-      <img v-if="season.attributes.poster_url" 
+      <img v-if="season.attributes.poster_url"
           :src="season.attributes.poster_url" />
 
       <p>
@@ -36,8 +36,9 @@
     </h2>
 
     <ul class="summaries" v-if="season.relationships.episodes">
-      <episode v-for="episode in episodes" 
-          :episode="episode">    
+      <episode v-for="episode in episodes"
+          :key="episode.id"
+          :episode="episode">
       </episode>
     </ul>
 

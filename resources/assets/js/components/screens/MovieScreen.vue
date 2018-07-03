@@ -14,12 +14,12 @@
     <router-link class="button button-desktop" to="/movies">
       <i class="material-icons">&#xE02C;</i> Movies
     </router-link>
-    <a class="button" 
-        :class="{ disabled: isDisabled }" 
+    <a class="button"
+        :class="{ disabled: isDisabled }"
         :href="'/downloads/movies/' + movie.id">
       <i class="material-icons">&#xE039;</i> Watch
     </a>
-    <router-link class="button" 
+    <router-link class="button"
         :to="{ path: '/movies/' + movie.id + '/edit' }">
       <i class="material-icons">&#xE254;</i> Edit
     </router-link>
@@ -30,7 +30,7 @@
         Overview
       </h2>
 
-      <img v-if="movie.attributes.poster_url" 
+      <img v-if="movie.attributes.poster_url"
           :src="movie.attributes.poster_url" />
 
       <p>
@@ -38,14 +38,14 @@
       </p>
     </div>
 
-    <a class="button" 
-        target="_blank" 
+    <a class="button"
+        target="_blank"
         :href="movie.attributes.tmdb_url">
       <i class="material-icons">&#xE157;</i> TMDB
     </a>
-    <a class="button" 
-        target="_blank" 
-        :href="movie.attributes.imdb_url" 
+    <a class="button"
+        target="_blank"
+        :href="movie.attributes.imdb_url"
         v-if="movie.attributes.imdb_url">
       <i class="material-icons">&#xE157;</i> IMDB
     </a>
@@ -83,7 +83,8 @@
     </h2>
 
     <ul class="tags" v-if="movie.relationships.genres">
-      <li v-for="genre in genres">
+      <li v-for="genre in genres"
+        :key="genre.id">
         {{ genre.attributes.name }}
       </li>
     </ul>
@@ -126,7 +127,7 @@ export default {
 
   components: {
     MonthlyChart,
-    Spinner 
+    Spinner
   },
 
   created: function () {

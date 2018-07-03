@@ -14,14 +14,15 @@ const { mix } = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
     .extract([
         'axios',
+        'babel-polyfill',
         'chart.js',
         'lodash',
         'moment',
         'moment-range',
-        'vue', 
-        'vue-moment', 
-        'vue-router', 
-        'vuex', 
+        'vue',
+        'vue-moment',
+        'vue-router',
+        'vuex',
         'vuex-router-sync'
     ])
     .sass('resources/assets/sass/app.scss', 'public/css');

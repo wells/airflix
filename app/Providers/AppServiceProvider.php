@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
 use League\Glide\ServerFactory;
 use League\Glide\Responses\LaravelResponseFactory;
+use Laravel\Horizon\Horizon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,33 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->bootCarbonSerialization();
+        $this->bootHorizonAuth();
+    }
+
+    /**
+     * Set Carbon JSON serialization to ISO-8601 format (aka ATOM)
+     *
+     * @return void
+     */
+    protected function bootCarbonSerialization()
+    {
+        // DateTime::ATOM is the actual compatible format with ISO-8601 in php
+        Carbon::serializeUsing(function ($carbon) {
+            return $carbon->format(DateTime::ATOM);
+        });
+    }
+
+    /**
+     * Enable Horizon dashboard outside of local environment
+     *
+     * @return void
+     */
+    protected function bootHorizonAuth()
+    {
+        Horizon::auth(function ($request) {
+            return true;
+        });
     }
 
     /**
@@ -105,18 +133,18 @@ class AppServiceProvider extends ServiceProvider
     {
         // Retrieve the Accept header from the Request
         $mimeType = request()->server('HTTP_ACCEPT', '*/*');
-        
+
         // Try to load the requested version, if provided
         $version = $this->parseMimeType($mimeType);
 
-        $classPath = $version ? 
+        $classPath = $version ?
             $this->formatPath($namespace, $version, $resource) : null;
 
         // Requested version exists for this resource
         if ($classPath && class_exists($classPath)) {
             return $classPath;
         }
-        
+
         // Map the latest version of the resource
         $versions = (array) config('airflix.api.versions', [1.0, ]);
 

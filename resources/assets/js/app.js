@@ -6,6 +6,7 @@
 
 import Vue from 'vue'
 import _ from 'lodash'
+import 'babel-polyfill'
 import VueRouter from 'vue-router'
 import VueMoment from 'vue-moment'
 import axios from 'axios'
@@ -27,7 +28,7 @@ window._ = _
 // install axios
 window.axios = axios
 
-axios.defaults.headers.common['Accept'] = 
+axios.defaults.headers.common['Accept'] =
   'application/vnd.api+json; version=1; charset=utf-8'
 
 // install router
@@ -51,7 +52,7 @@ sync(store, router)
 window.vueRouter = router
 
 const app = new Vue({
-  router, 
+  router,
   store,
   ...App
 }).$mount('#app')

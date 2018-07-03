@@ -6,16 +6,16 @@
 
   <div v-if="!loadingRouteData">
     <img :src="show.attributes.backdrop_url" />
-    
+
     <h1>
       {{ show.attributes.name }}
     </h1>
 
-    <router-link class="button button-desktop" 
+    <router-link class="button button-desktop"
         to="/shows">
       <i class="material-icons">&#xE639;</i> Shows
     </router-link>
-    <router-link class="button" 
+    <router-link class="button"
         :to="{ path: '/shows/' + show.id + '/edit' }">
       <i class="material-icons">&#xE254;</i> Edit
     </router-link>
@@ -27,8 +27,9 @@
       </h2>
 
       <ul class="grid">
-        <li v-for="season in seasons">
-          <router-link class="button" 
+        <li v-for="season in seasons"
+          :key="season.id">
+          <router-link class="button"
               :to="{ path: '/shows/seasons/' + season.id }">
             {{ season.attributes.name }}
           </router-link>
@@ -42,7 +43,7 @@
         Overview
       </h2>
 
-      <img v-if="show.attributes.poster_url" 
+      <img v-if="show.attributes.poster_url"
           :src="show.attributes.poster_url" />
 
       <p>
@@ -50,20 +51,20 @@
       </p>
     </div>
 
-    <a class="button" 
-        target="_blank" 
+    <a class="button"
+        target="_blank"
         :href="show.attributes.tmdb_url">
       <i class="material-icons">&#xE157;</i> TMDB
     </a>
-    <a class="button" 
-        target="_blank" 
-        :href="show.attributes.imdb_url" 
+    <a class="button"
+        target="_blank"
+        :href="show.attributes.imdb_url"
         v-if="show.attributes.imdb_url">
       <i class="material-icons">&#xE157;</i> IMDB
     </a>
-    <a class="button" 
-        target="_blank" 
-        :href="show.attributes.tvdb_url" 
+    <a class="button"
+        target="_blank"
+        :href="show.attributes.tvdb_url"
         v-if="show.attributes.tvdb_url">
       <i class="material-icons">&#xE157;</i> TVDB
     </a>
@@ -82,7 +83,7 @@
         </div>
       </li>
       <li>
-        <div class="key">Average Runtime:</div> 
+        <div class="key">Average Runtime:</div>
         <div class="value">
           {{ show.attributes.average_runtime }} minutes
         </div>
@@ -107,7 +108,8 @@
     </h2>
 
     <ul class="tags" v-if="show.relationships.genres">
-      <li v-for="genre in genres">
+      <li v-for="genre in genres"
+        :key="genre.id">
         {{ genre.attributes.name }}
       </li>
     </ul>
@@ -150,7 +152,7 @@ export default {
 
   components: {
     MonthlyChart,
-    Spinner 
+    Spinner
   },
 
   created: function () {
@@ -246,7 +248,7 @@ export default {
       .value()
     },
 
-    show: function () { 
+    show: function () {
       let state = this.$store.state
 
       return state.shows.all.find(
